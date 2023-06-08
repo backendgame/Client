@@ -49,4 +49,40 @@ public class NetworkGlobal : MonoBehaviour{
             return ins;
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    #region One Hit
+    public void StartOnehit(MessageSending _messageSending, Action<MessageReceiving, bool> _onFinished, int _addSleepWait = 0){
+        List<ServerDetail> _listServer=new List<ServerDetail>();
+        _listServer.Add(new ServerDetail().SetIp(BGConfig.IP).SetOnehit(BGConfig.portOnehit));
+        StartOnehit(_messageSending, _listServer,_onFinished,_addSleepWait);
+    }
+    public void StartOnehit(MessageSending _messageSending, string ip, int port, Action<MessageReceiving, bool> _onFinished, int _addSleepWait = 0){
+        List<ServerDetail> _listServer=new List<ServerDetail>();
+        _listServer.Add(new ServerDetail().SetIp(ip).SetOnehit(port));
+        StartOnehit(_messageSending,_listServer,_onFinished,_addSleepWait);
+    }
+    public void StartOnehit(MessageSending _messageSending, List<ServerDetail> _listServer, Action<MessageReceiving, bool> _onFinished,int _addSleepWait = 0){
+        OneHitGame clientOnehit = new OneHitGame(_listServer, _messageSending, _addSleepWait);
+        clientOnehit.onError = (n) => {
+            Debug.LogError("Onehit Error : "+CMD_ONEHIT.getCMDName(_messageSending)+"➜"+n);
+            if(_onFinished != null)
+                setUpdateUI(()=>{
+                    _onFinished(null,true); 
+                });           
+        };
+        clientOnehit.onSuccess = ()=>{
+            Debug.LogWarning("Onehit : " + CMD_ONEHIT.getCMDName(_messageSending.getCMD()) + " " + _messageSending.avaiable() + " byte " + (clientOnehit.messageReceiving == null ? "" : ("➜ " + clientOnehit.messageReceiving.avaiable() + " byte")) + "   " + clientOnehit.currentServer.getTraceOnehit()+" ("+clientOnehit.messageReceiving.timeProcess+" ms)");
+            if(_onFinished != null)
+                setUpdateUI(()=>{
+                    _onFinished(clientOnehit.messageReceiving,false);
+                    if(clientOnehit.messageReceiving.validate()==false)
+                        Debug.LogError("Onehit MessageReceiving : "+clientOnehit.messageReceiving.avaiable()+" byte("+CMD_ONEHIT.getCMDName(_messageSending)+"➜"+clientOnehit.messageReceiving.lengthReceive()+")");
+                });
+        };
+        new Thread(new ThreadStart(clientOnehit.RunNetwork)).Start();
+    }
+	#endregion
 }

@@ -36,25 +36,27 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\GoogleSignIn_UnityEditor.cs" />
-     <Compile Include="Assets\Scenes\InGame\S5_Leaderboard\LeaderboardSceneManager.cs" />
-     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Text\Dialog_YesNo_Text.cs" />
-     <Compile Include="Assets\Scenes\InGame\S3_Home\HomeSceneManager.cs" />
-     <Compile Include="Assets\Scenes\Global\Dialog\Loading\Dialog_Loading.cs" />
-     <Compile Include="Assets\Scenes\Network\NetworkGlobal.cs" />
-     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\Dialog_YesNo_Input.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\Alert\Dialog_Alert.cs" />
      <Compile Include="Assets\Scenes\Global\GlobalCanvas.cs" />
-     <Compile Include="Assets\Scenes\InGame\S1_Splash\SplashSceneManager.cs" />
-     <Compile Include="Assets\Scenes\InGame\S2_Login\LoginSceneManager.cs" />
-     <Compile Include="Assets\Scenes\Network\MessageReceiving.cs" />
-     <Compile Include="Assets\Scenes\Network\MessageSending.cs" />
-     <Compile Include="Assets\Scenes\Network\OneHitGame.cs" />
-     <Compile Include="Assets\Scenes\Network\OnehitCore.cs" />
-     <Compile Include="Assets\Scenes\Network\DateTimeUtil.cs" />
+     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\Dialog_YesNo_Input.cs" />
+     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\GoogleSignIn_UnityEditor.cs" />
      <Compile Include="Assets\Scenes\Global\CMD_REALTIME.cs" />
-     <Compile Include="Assets\Scenes\Global\CMD_ONEHIT.cs" />
+     <Compile Include="Assets\Scenes\Network\OneHitGame.cs" />
+     <Compile Include="Assets\Scenes\Network\MessageSending.cs" />
      <Compile Include="Assets\Scenes\Global\BGConfig.cs" />
+     <Compile Include="Assets\Scenes\Network\MessageReceiving.cs" />
+     <Compile Include="Assets\Scenes\Global\CMD_ONEHIT.cs" />
+     <Compile Include="Assets\Scenes\InGame\S2_Login\LoginSceneManager.cs" />
+     <Compile Include="Assets\Scenes\InGame\S5_Leaderboard\LeaderboardSceneManager.cs" />
+     <Compile Include="Assets\Scenes\InGame\S3_Home\HomeSceneManager.cs" />
+     <Compile Include="Assets\Scenes\Global\Dialog\Loading\Dialog_Loading.cs" />
+     <Compile Include="Assets\Scenes\InGame\S1_Splash\SplashSceneManager.cs" />
+     <Compile Include="Assets\Scenes\Network\DateTimeUtil.cs" />
+     <Compile Include="Assets\Scenes\Network\OnehitCore.cs" />
+     <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Text\Dialog_YesNo_Text.cs" />
+     <Compile Include="Assets\Scenes\Network\NetworkGlobal.cs" />
+     <Compile Include="Assets\Scenes\Network\ServerDetail.cs" />
+     <Compile Include="Assets\Scenes\Global\StatusOnehit.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

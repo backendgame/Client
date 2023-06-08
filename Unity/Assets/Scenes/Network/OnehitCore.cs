@@ -23,7 +23,6 @@ public class OnehitCore{
         isRunning=true;
         networkStream = tcpSocket.GetStream();
         ProcessNetwork();
-        Thread.Sleep(3000);
         networkStream.Close();
         tcpSocket.Close();
     }
