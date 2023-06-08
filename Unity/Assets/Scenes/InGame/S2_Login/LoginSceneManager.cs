@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SplashSceneManager : MonoBehaviour
+public class LoginSceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,10 +14,5 @@ public class SplashSceneManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void onClickButtonTest() {
-        Debug.Log("The frist Scene");
-        SceneManager.LoadScene("LoginScene", LoadSceneMode.Single);
     }
 }

@@ -46,6 +46,7 @@
      <Compile Include="Assets\Scenes\Global\Dialog\Alert\Dialog_Alert.cs" />
      <Compile Include="Assets\Scenes\Global\GlobalCanvas.cs" />
      <Compile Include="Assets\Scenes\InGame\S1_Splash\SplashSceneManager.cs" />
+     <Compile Include="Assets\Scenes\InGame\S2_Login\LoginSceneManager.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
