@@ -19,6 +19,6 @@ public class SplashSceneManager : MonoBehaviour
 
     public void onClickButtonTest() {
         Debug.Log("The frist Scene");
-        SceneManager.LoadScene("LoginScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("LoginScene");
     }
 }
