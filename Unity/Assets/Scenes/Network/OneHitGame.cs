@@ -1,11 +1,12 @@
-﻿using System.Net.Sockets;
+﻿using System.Threading;
+using System.Net.Sockets;
 using System.Collections.Generic;
 using UnityEngine;
 
  
 public class OneHitGame : OnehitCore {
     private List<string> listIpConnect;
-    public string currentIPDetail;
+    public string currentIP;
 
     public OneHitGame(string ip, MessageSending _messageSending, int _addWaitTimemili=0) {
         listIpConnect=new List<string>();
@@ -22,29 +23,29 @@ public class OneHitGame : OnehitCore {
         messageSending = _messageSending;
         addWaitTimemili = _addWaitTimemili;
     }
+
     public void RunNetwork(){
-        TcpClient _tcpClient = null;
+        long TIME_OUT = 3000;
         for (int i = 0; i < listIpConnect.Count; i++) {
-            _tcpClient = ConnectIp(listIpConnect[i],BGConfig.portOnehit,1268);
-            if(_tcpClient==null){
-                // #if TEST
-                // Debug.LogWarning("--->Onehit error connect : "+currentIPDetail.ip+"("+currentIPDetail.port_onehit+")");
-                // #endif
-            }else{
-                // #if TEST
-                // Debug.LogWarning("Tạo kết nối thành công đến : "+currentIPDetail.ip+"("+currentIPDetail.port_onehit+")");
-                // #endif                
-                break;
-            }
+            currentIP=listIpConnect[i];
+            if (currentIP.Contains(":") || currentIP.Contains("v6"))
+                tcpSocket = new TcpClient(AddressFamily.InterNetworkV6);
+            else
+                tcpSocket = new TcpClient(AddressFamily.InterNetwork);
+
+            for(int k=0;k<TIME_OUT/5;k++)
+                if (tcpSocket.Connected){
+                    ProcessTCP();
+                    return;
+                }else
+                    Thread.Sleep(5);
+            tcpSocket.Close();
         }
-        if (_tcpClient == null){
-            #if TEST
-            for (int i = 0; i < listIpConnect.Count; i++)
-                Debug.LogError("TCP Socket Error ➞ "+listIpConnect[i].ip+":"+listIpConnect[i].port_onehit);
-            #endif
-            if(onError!=null)
-                onError("Network error : "+CMD_ONEHIT.getCMDName(messageSending.getCMD()));
-        }else
-            ProcessTCP(_tcpClient);
+
+        for (int i = 0; i < listIpConnect.Count; i++)
+            Debug.LogError("TCP Socket Error ➞ "+listIpConnect[i]+" → "+BGConfig.portOnehit);
+        if(onError!=null)
+            onError("Network error : "+CMD_ONEHIT.getCMDName(messageSending.getCMD()));
+
     }
 }

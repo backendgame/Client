@@ -15,33 +15,12 @@ public class OnehitCore{
     protected MessageSending messageSending;
 	public int addWaitTimemili;
     
-    public TcpClient ConnectIp(String _ip,int _port,long TIME_OUT){
-        TcpClient _tcpClient;
-        if (_ip.Contains(":") || _ip.Contains("v6"))
-            _tcpClient = new TcpClient(AddressFamily.InterNetworkV6);
-        else
-            _tcpClient = new TcpClient(AddressFamily.InterNetwork);
-        try{
-            _tcpClient.BeginConnect(_ip, _port, null, null);
-        }catch(SocketException scE){
-
-        }
-        
-        for(int i=0;i<TIME_OUT/5;i++)
-            if (_tcpClient.Connected)
-                return _tcpClient;
-            else
-                Thread.Sleep(5);
-        _tcpClient.Close();
-        return null;
-    }
     
 
-    private TcpClient tcpSocket;
+    protected TcpClient tcpSocket;
     private NetworkStream networkStream;
-    protected void ProcessTCP(TcpClient _tcp) {
+    protected void ProcessTCP() {
         isRunning=true;
-        tcpSocket = _tcp;
         networkStream = tcpSocket.GetStream();
         ProcessNetwork();
         Thread.Sleep(3000);
@@ -49,15 +28,16 @@ public class OnehitCore{
         tcpSocket.Close();
     }
 
-
-    public bool isOnlySend;
     public MessageReceiving messageReceiving;
     public Action onSuccess;
     public Action<String> onError;
     private void ProcessNetwork() {
         long timeBeginProcess = DateTimeUtil.currentUtcTimeMilliseconds;
-        byte[] datatransfer = new byte[8192];
-        if (Wait(8))/*Chờ 2 giây*/
+        byte[] dataMessage = messageSending.getBytesArray();
+        int length = dataMessage.Length;
+        byte[] datatransfer = new byte[11+length];
+
+        if (Wait(8))
             networkStream.Read(datatransfer, 0, 8);
         else{
             onError("SOCKET_TIME_OUT(ValidateCode)");
@@ -71,32 +51,27 @@ public class OnehitCore{
         datatransfer[4] = (byte)(datatransfer[5] ^ validateCode);
         datatransfer[5] = (byte)(datatransfer[6] ^ validateCode);
         datatransfer[6] = (byte)(datatransfer[7] ^ validateCode);
-
-        byte[] dataMessage = messageSending.getBytesArray();
-        short length = (short)dataMessage.Length;
-        for (short i = 0; i < length; i++)
-            datatransfer[i + 9] = (byte)(dataMessage[i] ^ validateCode);
-        datatransfer[7] = (byte)(length >> 8);
-        datatransfer[8] = (byte)length;
-        networkStream.Write(datatransfer, 0, dataMessage.Length + 9);
-
-        if(isOnlySend){/*Only Send*/
-            onSuccess();
-            return;
-        }
         
-        /*cho server 3 giây để xử lý*/
+        for (short i = 0; i < length; i++)
+            datatransfer[i + 11] = (byte)(dataMessage[i] ^ validateCode);        
+        datatransfer[7] = (byte)(length >> 24);
+        datatransfer[8] = (byte)(length >> 16);
+        datatransfer[9] = (byte)(length >> 8);
+        datatransfer[10]= (byte)length;
+        networkStream.Write(datatransfer);
+        
+        
         int countWaitPing = (3000 + addWaitTimemili)/5;
         for(int i=0;i<countWaitPing;i++)
             if(isRunning==false){
                 onError("SOCKET_CLOSE_BY_USER");
                 return;
-            }else if (tcpSocket.Available < 2)
+            }else if (tcpSocket.Available < 4)
                 try{Thread.Sleep(5);}catch(Exception e){Debug.Log("Error : "+e.Message);}
             else
                 break;
 
-        if(tcpSocket.Available < 2){
+        if(tcpSocket.Available < 4){
             onError("ERROR(Sai giao thuc)");
             return;
         }
@@ -124,11 +99,8 @@ public class OnehitCore{
         }else
             onError("SOCKET_LENGTH_ERROR("+length+")");
     }
-    public void CloseConnect(){
-        isRunning=false;
-    }
     private bool Wait(int _length) {
-        for (int i = 0; i < 800; i++)
+        for (int i = 0; i < 600; i++)
             if (isRunning == false)
                 return false;
             else if (tcpSocket.Available < _length) {
