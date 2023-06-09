@@ -115,16 +115,34 @@ public class MessageReceiving {
 		}
 	}
 	
-	public float readFloatFromInt() {return ((float)readInt())/1000;}
-	public double readDoubleFromLong() {return ((double)readLong())/1000000;}
-	public sbyte[] readMiniByte(){
-		sbyte lengthReceive = readByte();
-		if (lengthReceive < 1)
+	public float readFloat() {return System.BitConverter.Int32BitsToSingle(readInt());}
+	public double readDouble() {return System.BitConverter.Int64BitsToDouble(readLong());}
+	public byte[] readByteArray(){
+		int _length=readInt();
+		if(_length==0){
+			currentReader+=4;
 			return null;
-		sbyte[] dataReceive = new sbyte[lengthReceive];
-		for (sbyte i = 0; i < lengthReceive; i++)
-			dataReceive[i] = readByte();
-		return dataReceive;
+		}
+		byte[] data=new byte[_length];
+		for(int i=0;i<_length;i++)
+			data[i]=buffer[i+currentReader];
+		currentReader=currentReader+_length+4;
+		return data;
+	}
+
+	public void readSpecialArray_WithoutLength(byte[] _data){
+		if(_data==null)
+			return;
+		for(int i=0;i<_data.Length;i++)
+			_data[i] = buffer[i+currentReader];
+		currentReader+=_data.Length;
+	}
+	public byte[] readSpecialArray_WithoutLength(int _length){
+		if(_length<1)
+			return null;
+		byte[] data=new byte[_length];
+		readSpecialArray_WithoutLength(data);
+		return data;
 	}
 
 	public String readString(){

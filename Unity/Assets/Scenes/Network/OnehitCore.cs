@@ -51,10 +51,8 @@ public class OnehitCore{
         datatransfer[5] = (byte)(datatransfer[6] ^ validateCode);
         datatransfer[6] = (byte)(datatransfer[7] ^ validateCode);
         
-        for (short i = 0; i < length; i++){
-            Debug.Log("i : "+dataMessage[i]);
+        for (short i = 0; i < length; i++)
             datatransfer[i + 11] = (byte)(dataMessage[i] ^ validateCode);        
-        }
         length = length - 2;
         datatransfer[7] = (byte)(length >> 24);
         datatransfer[8] = (byte)(length >> 16);

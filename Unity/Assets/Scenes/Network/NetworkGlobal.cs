@@ -79,7 +79,7 @@ public class NetworkGlobal : MonoBehaviour{
                 setUpdateUI(()=>{
                     _onFinished(clientOnehit.messageReceiving,false);
                     if(clientOnehit.messageReceiving.validate()==false)
-                        Debug.LogError("Onehit MessageReceiving : "+clientOnehit.messageReceiving.avaiable()+" byte("+CMD_ONEHIT.getCMDName(_messageSending)+"➜"+clientOnehit.messageReceiving.lengthReceive()+")");
+                        Debug.LogError("Onehit MessageReceiving : "+CMD_ONEHIT.getCMDName(_messageSending)+" : "+(clientOnehit.messageReceiving.lengthReceive()-2)+" byte ➜ "+clientOnehit.messageReceiving.avaiable()+" byte not used");
                 });
         };
         new Thread(new ThreadStart(clientOnehit.RunNetwork)).Start();

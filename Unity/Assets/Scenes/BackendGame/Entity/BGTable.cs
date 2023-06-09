@@ -10,6 +10,8 @@ public class BGTable{
     public long ReadKey;
     public long WriteKey;
 
+    public List<BGDescribe> listDescribeTable;
+
     public BGTable(){}
     public BGTable(short dbID,short tableId,long accessKey,long readKey,long writeKey){
         DBId=dbID;

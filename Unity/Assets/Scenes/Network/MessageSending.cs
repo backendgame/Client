@@ -65,7 +65,7 @@ public class MessageSending {
 		data=temp;
 	}
 
-    public void writeshort(short paramInt) {
+    public void writeShort(short paramInt) {
         int length=data.Length;
 		byte[] temp=new byte[length+2];
 		for(int i=0;i<length;i++)
@@ -103,7 +103,7 @@ public class MessageSending {
 		data=temp;
 	}
 	
-	public void writeCopyData(byte[] copyData) {
+	public void writeSpecialArray_WithoutLength(byte[] copyData) {
 		if(copyData==null)
 			return;
         int lengthCopy=copyData.Length;
@@ -118,8 +118,8 @@ public class MessageSending {
 		data=temp;
 	}
 	
-	public void writeFloatFromInt(float n) {writeInt((int) (n*1000));}
-	public void writeDoubleFromLong(double n) {writeLong((long) (n*1000000));}
+	public void writeFloat(float n) {writeInt(System.BitConverter.SingleToInt32Bits(n));}
+	public void writeDouble(double n) {writeLong(System.BitConverter.DoubleToInt64Bits(n));}
 	
 	public int writeString(String value) {
 		if(value==null)
