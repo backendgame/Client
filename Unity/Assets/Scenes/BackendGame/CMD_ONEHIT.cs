@@ -146,7 +146,7 @@ public class CMD_ONEHIT{
 			case 2: return "SplashGlobal_GetList_ServerGame_Name(2)";
 			case 3: return "SplashGlobal_GetList_ServerGame_IP(3)";
 			case 4: return "SplashGlobal_GetList_ServerGame_Data(4)";
-			case 40: return "SplashAiO_InfoGame_Android(40)";
+			case LGScreen_LoginAccount_0_Device: return "LGScreen_LoginAccount_0_Device";
 			case 41: return "SplashAiO_InfoGame_IOS(41)";
 			case 50: return "SplashAiO_IAPGold_Android(50)";
 			case 51: return "SplashAiO_IAPGold_IOS(51)";

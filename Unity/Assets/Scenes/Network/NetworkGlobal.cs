@@ -67,7 +67,7 @@ public class NetworkGlobal : MonoBehaviour{
     public void StartOnehit(MessageSending _messageSending, List<ServerDetail> _listServer, Action<MessageReceiving, bool> _onFinished,int _addSleepWait = 0){
         OneHitGame clientOnehit = new OneHitGame(_listServer, _messageSending, _addSleepWait);
         clientOnehit.onError = (n) => {
-            Debug.LogError("Onehit Error : "+CMD_ONEHIT.getCMDName(_messageSending)+"➜"+n);
+            Debug.LogError("Onehit Error : "+CMD_ONEHIT.getCMDName(_messageSending)+"("+_messageSending.avaiable()+" byte)➜"+n);
             if(_onFinished != null)
                 setUpdateUI(()=>{
                     _onFinished(null,true); 

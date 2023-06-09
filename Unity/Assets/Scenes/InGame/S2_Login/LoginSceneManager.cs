@@ -10,25 +10,18 @@ public class LoginSceneManager : MonoBehaviour{
 
     public InputField inputEmail;
     public InputField inputCode;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    void Start(){}void Update(){}
 
     public void onLoginDeviceId(){
         Debug.Log("onLoginDeviceId");
 
         MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_0_Device);
-        mgDevice.writeLong(BGConfig.TableAccount_Key_Access);
+        mgDevice.writeshort(BGInfo.tableAccount.DBId);
+        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
         mgDevice.writeString(SystemInfo.deviceUniqueIdentifier);
+        Debug.Log("AccessKey : "+BGInfo.tableAccount.AccessKey);
+        Debug.Log("DeviceId : "+SystemInfo.deviceUniqueIdentifier);
         NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
             if(messageReceiving!=null){
                 sbyte status = messageReceiving.readByte();

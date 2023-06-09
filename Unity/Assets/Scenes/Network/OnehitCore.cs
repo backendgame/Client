@@ -51,8 +51,11 @@ public class OnehitCore{
         datatransfer[5] = (byte)(datatransfer[6] ^ validateCode);
         datatransfer[6] = (byte)(datatransfer[7] ^ validateCode);
         
-        for (short i = 0; i < length; i++)
+        for (short i = 0; i < length; i++){
+            Debug.Log("i : "+dataMessage[i]);
             datatransfer[i + 11] = (byte)(dataMessage[i] ^ validateCode);        
+        }
+        length = length - 2;
         datatransfer[7] = (byte)(length >> 24);
         datatransfer[8] = (byte)(length >> 16);
         datatransfer[9] = (byte)(length >> 8);
@@ -71,14 +74,24 @@ public class OnehitCore{
                 break;
 
         if(tcpSocket.Available < 4){
-            onError("ERROR(Sai giao thuc)");
+            onError("ERROR(Protocol)");
             return;
         }
 
-        networkStream.Read(datatransfer, 0, 2);
+        networkStream.Read(datatransfer, 0, 4);
         int ch1 = datatransfer[0] & 0xFF;
         int ch2 = datatransfer[1] & 0xFF;
-        length = (short)((ch1 << 8) + (ch2 << 0)); if(length<0 || length>32768){onError("LengthError");return;}
+        int ch3 = datatransfer[2] & 0xFF;
+        int ch4 = datatransfer[3] & 0xFF;
+        length = ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
+        if(length==0){
+            onSuccess();
+            return;
+        }else if(length==int.MinValue){
+            onError("ERROR(CMD not found)");
+            return;
+        }
+
         datatransfer = new byte[length + 2];
         if (length > -1) {
             if (Wait(length)){
@@ -89,14 +102,11 @@ public class OnehitCore{
                 messageReceiving=new MessageReceiving(datatransfer);
                 messageReceiving.cmd = messageSending.getCMD();
                 messageReceiving.timeProcess = DateTimeUtil.currentUtcTimeMilliseconds-timeBeginProcess;
-                // #if TEST
-                // Debug.LogWarning("Onehit " + CMD_ONEHIT.getCMDName(messageSending) + " : " + messageSending.getBytesArray().Length+" byte ➜ "+length+" byte");
-                // #endif
                 onSuccess();
             }else
                 onError("SOCKET_RECEIVE_TIMEOUT");
         }else
-            onError("SOCKET_LENGTH_ERROR("+length+")");
+            onError("Server SOCKET_LENGTH_ERROR("+length+")");
     }
     private bool Wait(int _length) {
         for (int i = 0; i < 600; i++)
