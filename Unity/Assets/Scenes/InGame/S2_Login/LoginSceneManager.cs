@@ -19,6 +19,7 @@ public class LoginSceneManager : MonoBehaviour{
         PlayerData myPlayer = LocalDataManager.instance.myPlayer;
         myPlayer.UserId = messageReceiving.readLong();
         myPlayer.status = messageReceiving.readByte();
+        myPlayer.logoutId = messageReceiving.readByte();
 
         List<BGDescribe> listDescribe=new List<BGDescribe>();
         int numberDescribe = messageReceiving.readInt();
@@ -79,8 +80,7 @@ public class LoginSceneManager : MonoBehaviour{
         mgDevice.writeShort(BGInfo.tableAccount.DBId);
         mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
         mgDevice.writeString(SystemInfo.deviceUniqueIdentifier);
-        Debug.Log("AccessKey : "+BGInfo.tableAccount.AccessKey);
-        Debug.Log("DeviceId : "+SystemInfo.deviceUniqueIdentifier);
+        Debug.Log("DBId("+BGInfo.tableAccount.DBId+")   AccessKey("+BGInfo.tableAccount.AccessKey+"  DeviceId("+SystemInfo.deviceUniqueIdentifier+")");
         NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
             if(messageReceiving!=null){
                 sbyte status = messageReceiving.readByte();
@@ -98,9 +98,30 @@ public class LoginSceneManager : MonoBehaviour{
 
     public void onCreateAccount(){
         Debug.Log("onCreateAccount");
+
+
+
     }
     public void onLoginAccount(){
         Debug.Log("onLoginAccount");
+
+        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_1_System);
+        mgDevice.writeShort(BGInfo.tableAccount.DBId);
+        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
+        mgDevice.writeString(inputUsername.text);
+        mgDevice.writeString(inputPassword.text);
+        Debug.Log("DBId("+BGInfo.tableAccount.DBId+")   AccessKey("+BGInfo.tableAccount.AccessKey+"  Username("+inputUsername.text+")   Password("+inputPassword.text+")");
+        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
+            if(messageReceiving!=null){
+                sbyte status = messageReceiving.readByte();
+                if(status==StatusOnehit.Success){
+                    Debug.Log("Login Success");
+                    onReadDataLoginSuccess(messageReceiving);
+                    SceneManager.LoadScene("HomeScene");
+                }else
+                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
+            }
+        });
     }
 
     public void onLoginFacebook(){
