@@ -4,133 +4,66 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UnityEngine.Networking;
 
 public class LoginSceneManager : MonoBehaviour{
     public InputField inputUsername;
     public InputField inputPassword;
-
+    public InputField inputFacebookToken;
+    public InputField inputGoogleCode;
     public InputField inputEmail;
     public InputField inputCode;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////void Start(){}void Update(){}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    void Start(){}void Update(){}
-
-
-    private void onReadDataLoginSuccess(MessageReceiving messageReceiving){
-        PlayerData myPlayer = LocalDataManager.instance.myPlayer;
-        myPlayer.UserId = messageReceiving.readLong();
-        myPlayer.status = messageReceiving.readByte();
-        myPlayer.logoutId = messageReceiving.readByte();
-
-        List<BGDescribe> listDescribe=new List<BGDescribe>();
-        int numberDescribe = messageReceiving.readInt();
-        for(int i=0;i<numberDescribe;i++){
-            BGDescribe desTable = new BGDescribe();
-            desTable.readMessage(messageReceiving);
-            listDescribe.Add(desTable);
-        }
-        BGInfo.tableAccount.listDescribeTable=listDescribe;
-
-        object value=null;
-        for(int i=0;i<numberDescribe;i++){
-            sbyte Type = listDescribe[i].Type;
-            if(0<Type && Type<10)
-                value = messageReceiving.readBoolean();
-            else if(9<Type && Type<20)
-                value = messageReceiving.readByte();
-            else if(19<Type && Type<40)
-                value = messageReceiving.readShort();
-            else if(39<Type && Type<60)
-                value = messageReceiving.readInt();
-            else if(59<Type && Type<80)
-                value = messageReceiving.readFloat();
-            else if(79<Type && Type<90)
-                value = messageReceiving.readLong();
-            else if(89<Type && Type<100)
-                value = messageReceiving.readDouble();
-            else if(99<Type && Type<120)
-                value = messageReceiving.readByteArray();
-            else if(Type==DBDefine_DataType.STRING) {
-                value = messageReceiving.readString();
-            }else if(Type==DBDefine_DataType.IPV6)
-                value = messageReceiving.readSpecialArray_WithoutLength(16);
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Read every column here
-            if(string.Equals(listDescribe[i].ColumnName, BGInfo.ColumnName_NameShow))//Column name in database or use "indexDescribe" : 0,1,2,....
-                myPlayer.nameShow = (string)value;
-
-            if(string.Equals(listDescribe[i].ColumnName, BGInfo.ColumnName_AvatarId))
-                myPlayer.avatarId = (sbyte)value;
-
-            if(string.Equals(listDescribe[i].ColumnName, BGInfo.ColumnName_DeviceType))
-                myPlayer.deviceType = (sbyte)value;
-
-            if(string.Equals(listDescribe[i].ColumnName, BGInfo.ColumnName_Gold))
-                myPlayer.gold = (long)value;
-        }
-        Debug.Log(JsonConvert.SerializeObject(myPlayer));
-    }
-
-
-
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void onLoginDeviceId(){
         Debug.Log("onLoginDeviceId");
-
-        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_0_Device);
-        mgDevice.writeShort(BGInfo.tableAccount.DBId);
-        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
-        mgDevice.writeString(SystemInfo.deviceUniqueIdentifier);
-        Debug.Log("DBId("+BGInfo.tableAccount.DBId+")   AccessKey("+BGInfo.tableAccount.AccessKey+"  DeviceId("+SystemInfo.deviceUniqueIdentifier+")");
-        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
-            if(messageReceiving!=null){
-                sbyte status = messageReceiving.readByte();
-                if(status==StatusOnehit.Success){
-                    Debug.Log("Login Success");
-                    onReadDataLoginSuccess(messageReceiving);
-                    SceneManager.LoadScene("HomeScene");
-                }else
-                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
-            }
-        });
-
-        
+        LoginScreenOnehit.LoginDevice();
     }
 
     public void onCreateAccount(){
         Debug.Log("onCreateAccount");
-
-
-
+        LoginScreenOnehit.CreateAccount(inputUsername.text,inputPassword.text);
     }
     public void onLoginAccount(){
         Debug.Log("onLoginAccount");
-
-        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_1_System);
-        mgDevice.writeShort(BGInfo.tableAccount.DBId);
-        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
-        mgDevice.writeString(inputUsername.text);
-        mgDevice.writeString(inputPassword.text);
-        Debug.Log("DBId("+BGInfo.tableAccount.DBId+")   AccessKey("+BGInfo.tableAccount.AccessKey+"  Username("+inputUsername.text+")   Password("+inputPassword.text+")");
-        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
-            if(messageReceiving!=null){
-                sbyte status = messageReceiving.readByte();
-                if(status==StatusOnehit.Success){
-                    Debug.Log("Login Success");
-                    onReadDataLoginSuccess(messageReceiving);
-                    SceneManager.LoadScene("HomeScene");
-                }else
-                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
-            }
-        });
+        LoginScreenOnehit.LoginAccount(inputUsername.text,inputPassword.text);
     }
 
     public void onLoginFacebook(){
         Debug.Log("onLoginFacebook");
     }
+    public void onGetFacebookToken(){}
 
+    public void onGetGoogleCode(){Application.OpenURL("https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=profile%20email&redirect_uri=" + BGConfig.LoginGoogle_Authorised_redirect_URIs + "&client_id=" + BGConfig.LoginGoogle_Client_ID);}
     public void onLoginGoogle(){
         Debug.Log("onLoginGoogle");
+        /*
+            Login Google in Unity Editor:
+            1/ Create Project : https://console.cloud.google.com/
+            2/ "APIs and services" → "OAuth consent screen" : setup screen (https://console.cloud.google.com/apis/credentials/consent)
+            3/ "APIs and services" → "Credentials" → Create "OAuth Client ID" → "Application Type" = "Web Application" (https://console.cloud.google.com/apis/credentials)
+                    Authorised redirect URIs = https://backendgame.com/GoogleSignIn.html
+            4/ Get Code → https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=profile%20email&redirect_uri=" + redirect_uri + "&client_id=" + webClientId
+            5/ Convert Code → id_token
+            6/ Send token to server (https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=)
+        */
+		#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+            StartCoroutine(LoginScreenOnehit.parseGoogleCode_and_SendLogin(inputGoogleCode.text));
+		#else
+        /*
+            1/ Setup
+                https://github.com/googlesamples/google-signin-unity
+                https://github.com/googlesamples/google-signin-unity/releases
+            2/ Login → id_token
+            3/  
+        */
+            Debug.log("Wait for : Devloper setup");
+		#endif
     }
+
+
     public void onLoginAdsId(){
         Debug.Log("onLoginAdsId");
     }
@@ -138,7 +71,7 @@ public class LoginSceneManager : MonoBehaviour{
     public void onLoginEmailCode(){
         Debug.Log("onLoginEmailCode");
     }
-    public void onGetCode(){
+    public void onGetEmailCode(){
         Debug.Log("onGetCode");
     }
 }

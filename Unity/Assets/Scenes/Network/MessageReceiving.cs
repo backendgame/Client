@@ -117,6 +117,32 @@ public class MessageReceiving {
 	
 	public float readFloat() {return System.BitConverter.Int32BitsToSingle(readInt());}
 	public double readDouble() {return System.BitConverter.Int64BitsToDouble(readLong());}
+
+	public object readType(sbyte Type){
+		if(0<Type && Type<10)
+			return readBoolean();
+		else if(9<Type && Type<20)
+			return readByte();
+		else if(19<Type && Type<40)
+			return readShort();
+		else if(39<Type && Type<60)
+			return readInt();
+		else if(59<Type && Type<80)
+			return readFloat();
+		else if(79<Type && Type<90)
+			return readLong();
+		else if(89<Type && Type<100)
+			return readDouble();
+		else if(99<Type && Type<120)
+			return readByteArray();
+		else if(Type==DBDefine_DataType.STRING) {
+			return readString();
+		}else if(Type==DBDefine_DataType.IPV6)
+			return readSpecialArray_WithoutLength(16);
+		else
+			return null;
+	}
+
 	public byte[] readByteArray(){
 		int _length=readInt();
 		if(_length==0){

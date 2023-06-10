@@ -23,8 +23,8 @@ public class GlobalCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ins = this;
-        DontDestroyOnLoad(ins);
+        // ins = this;
+        // DontDestroyOnLoad(ins);
     }
 
     // Update is called once per frame
@@ -39,5 +39,15 @@ public class GlobalCanvas : MonoBehaviour
     }
 
     private static GlobalCanvas ins = null;
-    public static GlobalCanvas instance { get { return ins; } }
+    public static GlobalCanvas instance { 
+        get {
+            if(ins==null){
+                GameObject go = new GameObject();
+                ins = go.AddComponent<GlobalCanvas>();
+                go.name = ins.GetType().Name;
+                DontDestroyOnLoad(ins);
+            }
+            return ins; 
+        }
+    }
 }

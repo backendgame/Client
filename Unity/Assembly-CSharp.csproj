@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scenes\Network\OnehitCore.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Text\Dialog_YesNo_Text.cs" />
      <Compile Include="Assets\Scenes\Network\NetworkGlobal.cs" />
+     <Compile Include="Assets\Scenes\InGame\S2_Login\LoginScreenOnehit.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
