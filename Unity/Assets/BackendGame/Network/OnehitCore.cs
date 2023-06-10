@@ -93,24 +93,43 @@ public class OnehitCore{
             return;
         }
 
-        datatransfer = new byte[length+2];
         if(length+4>NetworkGlobal.SOCKET_BUFFER){
-            for(int i=0;i<length;i++){
-                if((i+4)%NetworkGlobal.SOCKET_BUFFER==0)
-                    networkStream.WriteByte(0);
+            datatransfer = new byte[length+2];
+            int count = NetworkGlobal.SOCKET_BUFFER - 4;
+            if(Wait(count)){
+                networkStream.Read(datatransfer, 0, count);
+                networkStream.WriteByte(0);
+            }else{
+                onError("SOCKET_RECEIVE_TIMEOUT");
+                return;
+            }
 
-                if(Wait(1))
-                    datatransfer[i+2]= (byte)networkStream.ReadByte();
-                else{
+            while(count+NetworkGlobal.SOCKET_BUFFER<length)
+                if(Wait(NetworkGlobal.SOCKET_BUFFER)){
+                    networkStream.Read(datatransfer, count, NetworkGlobal.SOCKET_BUFFER);
+                    networkStream.WriteByte(0);
+                    count+=NetworkGlobal.SOCKET_BUFFER;
+                }else{
                     onError("SOCKET_RECEIVE_TIMEOUT");
                     return;
                 }
+
+            if(Wait(length-count)){
+                networkStream.Read(datatransfer, count, length-count);
+            }else{
+                onError("SOCKET_RECEIVE_TIMEOUT");
+                return;
             }
+
+            for(int i=length-1;i>=0;i--)
+                datatransfer[i+2]=(byte)(datatransfer[i]^validateCode);
+
             messageReceiving=new MessageReceiving(datatransfer);
             messageReceiving.cmd = messageSending.getCMD();
             messageReceiving.timeProcess = DateTimeUtil.currentUtcTimeMilliseconds-timeBeginProcess;
             onSuccess();
         }else{
+            datatransfer = new byte[length+2];
             if (Wait(length)){
                 networkStream.Read(datatransfer, 2, length);
                 for (short i = 0; i < length; i++)

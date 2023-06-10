@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 public class LoginScreenOnehit{
 
     private static void onReadDataLoginSuccess(MessageReceiving messageReceiving){
+        Debug.Log("Login Success");
         PlayerData myPlayer = LocalDataManager.instance.myPlayer;
         myPlayer.UserId = messageReceiving.readLong();
         myPlayer.status = messageReceiving.readByte();
@@ -40,6 +41,7 @@ public class LoginScreenOnehit{
                 myPlayer.gold = (long)value;
         }
         Debug.Log(JsonConvert.SerializeObject(myPlayer));
+        SceneManager.LoadScene("HomeScene");
     }
 
     public static void LoginDevice(){
@@ -51,11 +53,11 @@ public class LoginScreenOnehit{
         NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
             if(messageReceiving!=null){
                 sbyte status = messageReceiving.readByte();
-                if(status==StatusOnehit.Success){
-                    Debug.Log("Login Success");
+                if(status==StatusOnehit.Success)
                     onReadDataLoginSuccess(messageReceiving);
-                    SceneManager.LoadScene("HomeScene");
-                }else
+                else if(status==StatusOnehit.AccessKey)
+                    Debug.Log("<color=yellow>AccessKey</color> in BGInfo.cs is invalid. Update new Info at : http://localhost:8096/developer");
+                else
                     Debug.Log("Login fail : "+StatusOnehit.getString(status));
             }
         });
@@ -71,18 +73,33 @@ public class LoginScreenOnehit{
         NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
             if(messageReceiving!=null){
                 sbyte status = messageReceiving.readByte();
-                if(status==StatusOnehit.Success){
-                    Debug.Log("Login Success");
+                if(status==StatusOnehit.Success)
                     onReadDataLoginSuccess(messageReceiving);
-                    SceneManager.LoadScene("HomeScene");
-                }else
+                else if(status==StatusOnehit.AccessKey)
+                    Debug.Log("<color=yellow>AccessKey</color> in BGInfo.cs is invalid. Update new Info at : http://localhost:8096/developer");
+                else
                     Debug.Log("Login fail : "+StatusOnehit.getString(status));
             }
         });
     }
 
     public static void CreateAccount(string username,string password){
-
+        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_RegisterAccount);
+        mgDevice.writeShort(BGInfo.tableAccount.DBId);
+        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
+        mgDevice.writeString(username);
+        mgDevice.writeString(password);
+        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
+            if(messageReceiving!=null){
+                sbyte status = messageReceiving.readByte();
+                if(status==StatusOnehit.Success)
+                    onReadDataLoginSuccess(messageReceiving);
+                else if(status==StatusOnehit.AccessKey)
+                    Debug.Log("<color=yellow>AccessKey</color> in BGInfo.cs is invalid. Update new Info at : http://localhost:8096/developer");
+                else
+                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
+            }
+        });
     }
 
 
@@ -106,16 +123,44 @@ public class LoginScreenOnehit{
             string id_token = jsonResult["id_token"].ToString();
             string access_token = jsonResult["access_token"].ToString();
 
-            Application.OpenURL("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token="+id_token);
+            //Application.OpenURL("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token="+id_token);
             Debug.Log("id_token=<color=orange>"+id_token+"</color> → send to server");
             LoginGoogle(id_token);
         }
     }
     public static void LoginGoogle(string id_token){
-
+        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_3_Google);
+        mgDevice.writeShort(BGInfo.tableAccount.DBId);
+        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
+        mgDevice.writeString(id_token);
+        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
+            if(messageReceiving!=null){
+                sbyte status = messageReceiving.readByte();
+                if(status==StatusOnehit.Success)
+                    onReadDataLoginSuccess(messageReceiving);
+                else if(status==StatusOnehit.AccessKey)
+                    Debug.Log("<color=yellow>AccessKey</color> in BGInfo.cs is invalid. Update new Info at : http://localhost:8096/developer");
+                else
+                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
+            }
+        });
     }
 
     public static void  LoginFacebook(string tokenFacebook){
-
+        MessageSending mgDevice=new MessageSending(CMD_ONEHIT.LGScreen_LoginAccount_2_Facebook);
+        mgDevice.writeShort(BGInfo.tableAccount.DBId);
+        mgDevice.writeLong(BGInfo.tableAccount.AccessKey);
+        mgDevice.writeString(tokenFacebook);
+        NetworkGlobal.instance.StartOnehit(mgDevice,(messageReceiving,isError)=>{
+            if(messageReceiving!=null){
+                sbyte status = messageReceiving.readByte();
+                if(status==StatusOnehit.Success)
+                    onReadDataLoginSuccess(messageReceiving);
+                else if(status==StatusOnehit.AccessKey)
+                    Debug.Log("<color=yellow>AccessKey</color> in BGInfo.cs is invalid. Update new Info at : http://localhost:8096/developer");
+                else
+                    Debug.Log("Login fail : "+StatusOnehit.getString(status));
+            }
+        });
     }
 }

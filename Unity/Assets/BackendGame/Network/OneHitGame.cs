@@ -55,7 +55,7 @@ public class OneHitGame : OnehitCore {
         for (int i = 0; i < listServer.Count; i++)
             Debug.LogError("TCP Socket Error ➞ "+listServer[i].ipv4+"("+listServer[i].portOnehit+")    "+listServer[i].ipv6+"("+listServer[i].portOnehit+")");
         if(onError!=null)
-            onError("Network error : "+CMD_ONEHIT.getCMDName(messageSending.getCMD()));
+            onError("Network error : "+CMD_ONEHIT.getName(messageSending.getCMD()));
 
     }
 }

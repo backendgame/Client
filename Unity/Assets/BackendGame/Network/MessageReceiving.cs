@@ -21,7 +21,7 @@ public class MessageReceiving {
 		isMessageCorrect=true;
 	}
 	public short getCMD() {return cmd;}
-	public string getCMDName(){return CMD_REALTIME.getCMDName(cmd);}
+	public string getCMDName(){return CMD_REALTIME.getName(cmd);}
 	public int avaiable() {return lengData-currentReader;}
 	public void moveToEnd(){currentReader=lengData;}
 	public byte[] getEndByte() {

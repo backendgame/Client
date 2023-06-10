@@ -67,19 +67,19 @@ public class NetworkGlobal : MonoBehaviour{
     public void StartOnehit(MessageSending _messageSending, List<ServerDetail> _listServer, Action<MessageReceiving, bool> _onFinished,int _addSleepWait = 0){
         OneHitGame clientOnehit = new OneHitGame(_listServer, _messageSending, _addSleepWait);
         clientOnehit.onError = (n) => {
-            Debug.LogError("Onehit Error : "+CMD_ONEHIT.getCMDName(_messageSending)+"("+_messageSending.avaiable()+" byte)➜"+n);
+            Debug.LogError("Onehit Error : "+CMD_ONEHIT.getName(_messageSending)+"("+_messageSending.avaiable()+" byte)➜"+n);
             if(_onFinished != null)
                 setUpdateUI(()=>{
                     _onFinished(null,true); 
                 });           
         };
         clientOnehit.onSuccess = ()=>{
-            Debug.LogWarning("Onehit : " + CMD_ONEHIT.getCMDName(_messageSending.getCMD()) + " " + _messageSending.avaiable() + " byte " + (clientOnehit.messageReceiving == null ? "" : ("➜ " + clientOnehit.messageReceiving.avaiable() + " byte")) + "   " + clientOnehit.currentServer.getTraceOnehit()+" ("+clientOnehit.messageReceiving.timeProcess+" ms)");
+            Debug.LogWarning("Onehit : " + CMD_ONEHIT.getName(_messageSending.getCMD()) + " " + _messageSending.avaiable() + " byte " + (clientOnehit.messageReceiving == null ? "" : ("➜ " + clientOnehit.messageReceiving.avaiable() + " byte")) + "   " + clientOnehit.currentServer.getTraceOnehit()+" ("+clientOnehit.messageReceiving.timeProcess+" ms)");
             if(_onFinished != null)
                 setUpdateUI(()=>{
                     _onFinished(clientOnehit.messageReceiving,false);
                     if(clientOnehit.messageReceiving.validate()==false)
-                        Debug.LogError("Onehit MessageReceiving : "+CMD_ONEHIT.getCMDName(_messageSending)+" : "+(clientOnehit.messageReceiving.lengthReceive()-2)+" byte ➜ "+clientOnehit.messageReceiving.avaiable()+" byte not used");
+                        Debug.LogError("Onehit MessageReceiving : "+CMD_ONEHIT.getName(_messageSending)+" : "+(clientOnehit.messageReceiving.lengthReceive()-2)+" byte ➜ "+clientOnehit.messageReceiving.avaiable()+" byte not used");
                 });
         };
         new Thread(new ThreadStart(clientOnehit.RunNetwork)).Start();

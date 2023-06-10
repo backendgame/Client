@@ -1,247 +1,360 @@
 public class CMD_ONEHIT{
-	public const short SplashGlobal_GetList_OneHit		=1;
-	public const short SplashGlobal_GetList_ServerGame_Name=2;
-	public const short SplashGlobal_GetList_ServerGame_IP=3;
-	public const short SplashGlobal_GetList_ServerGame_Data=4;
-
-	public const short SplashAiO_InfoGame_Android		=40;
-	public const short SplashAiO_InfoGame_IOS			=41;
-
-	public const short SplashAiO_IAPGold_Android			=50;
-	public const short SplashAiO_IAPGold_IOS				=51;
-	public const short SplashAiO_IAPDiamond_Android		=52;
-	public const short SplashAiO_IAPDiamond_IOS			=53;
-
-	public const short SplashAiO_IAPInfo_Android			=80;
-	public const short SplashAiO_IAPInfo_IOS				=81;
-
-	public const short NGOCMANH_Forward_SET_LIST_DATA=150;
-	public const short NGOCMANH_GET_LIST_DATA			=151;
-	public const short NGOCMANH_Forward_Commit_Click		=152;
-
-	public const short NGOCMANH_Insert_Row				=160;
-	public const short NGOCMANH_Update_Row				=161;
-	public const short NGOCMANH_Delete_Row				=162;
-	public const short NGOCMANH_Get_List_Rows			=163;
-	public const short NGOCMANH_Get_Row_By_Id			=164;
-
-	public const short LGScreen_LoginAccount_0_Device=200;
-	public const short LGScreen_LoginAccount_1_System=201;
-	public const short LGScreen_LoginAccount_2_Facebook=202;
-	public const short LGScreen_LoginAccount_3_Google=203;
-	public const short LGScreen_LoginAccount_4_Email		=204;
-	public const short LGScreen_LoginAccount_5_Apple		=205;
-	public const short LGScreen_LoginAccount_6_PhoneNumber=206;
-
-	public const short LGScreen_RegisterAccount			=220;
-
-	public const short LGScreen_ResetPassword			=222;
-
-	public const short LGScreen_LoginToken_0_Device		=300;
-	public const short LGScreen_LoginToken_1_System		=301;
-	public const short LGScreen_LoginToken_2_Facebook=302;
-	public const short LGScreen_LoginToken_3_Google		=303;
-	public const short LGScreen_LoginToken_4_Email		=304;
-	public const short LGScreen_LoginToken_5_Apple		=305;
-	public const short LGScreen_LoginToken_6_PhoneNumber=306;
-
-	public const short HomeDB_ChangePassword				=500;
-	public const short HomeDB_GetEmailSecurity			=501;
-	public const short HomeDB_SetEmailSecurity			=502;
-
-	public const short HomeDB_Change_Avatarid			=505;
-
-	public const short HomeDB_LoginToken					=598;
-	public const short HomeDB_RefreshToken				=599;
-
-	public const short AiOHome_GetTopGold				=800;
-	public const short AiOHome_GetTopDiamond				=801;
-	public const short AiOHome_GetTopGoldDiamond			=802;
-
-	public const short FirstLogin_FullData_AIO			=1000;
-	public const short FirstLogin_FullData_AIO_Boom		=1001;
-	public const short FirstLogin_FullData_AIO_TowerDefense=1002;
-	public const short FirstLogin_FullData_AIO_Boom_TowerDefense=1003;
-
-	public const short AiOHome_Get_Gold_By_AiOid			=1020;
-
-	public const short AiOHome_Get_Subsidy				=1100;
-	public const short AiOHome_Get_DailyBonus			=1101;
-
-	public const short AiOHome_Get_Header_By_aioId		=1150;
-
-	public const short AiOShop_BuyInappPurchase_Android=1200;
-
-	public const short AiOShop_BuyInappPurchase_Ios		=1220;
-	public const short AiOShop_BuyInappPurchase_Ios_test=1221;
-
-	public const short AiOHome__GetPurchaseGoldPrice		=1250;
-
-	public const short AiORoomTable_GetListTable_By_gameid=2901;
-	public const short AiORoomTable_GetSmartTable_By_gameid=2902;
-
-	public const short AiORoomTable_GetListViewer_in_table=2905;
-
-	public const short Game_House_Get_Version			=2950;
-
-	public const short GameTowerDefense_Get_Data			=3001;
-	public const short GameTowerDefense_Update_Data		=3002;
-
-	public const short BoomHome_FirstLogin_HeaderGold_FullData=3200;
-
-	public const short BoomHome_Update_Data				=3205;
-
-	public const short BoomHome_Unlock_ThanhTuu			=3220;
-	public const short BoomHome_Commit_NhiemVu			=3221;
-
-	public const short BoomHome_Get_DailyBonus			=3250;
-	public const short BoomHome_Get_Free_By_VideoReward=3251;
-
-	public const short BoomHome_Get_Shop_Data			=3280;
-	public const short BoomHome_Shop_Character			=3281;
-	public const short BoomHome_Shop_Item				=3282;
-	public const short BoomHome_Shop_Skill				=3283;
-
-	public const short VIN_Update_Android				=6000;
-	public const short VIN_Update_IOS					=6001;
-	public const short VIN_IAP_Android					=6002;
-	public const short VIN_IAP_IOS						=6003;
-
-	public const short VinHome_FirstLogin_FullData		=6100;
-	public const short VinHome_Add_GOLD					=6101;
-	public const short VinHome_Add_DIAMOND				=6102;
-	public const short VinHome_Add_Egg					=6103;
-	public const short VinHome_Add_Pet					=6104;
-	public const short VinHome_Add_Spin					=6105;
-
-	public const short VinHome_Add_Medal					=6120;
-	public const short VinHome_Remove_Medal				=6121;
-
-	public const short VinHome_Bonus_Daily				=6200;
-
-	public const short VinHome_Use_Spin					=6202;
-	public const short VinHome_Break_Egg					=6203;
-
-	public const short VinHome_Create_PrivateRoom		=6800;
-
-	public const short VinHome_Bet_Casino				=6999;
-
-	public const short Game_Global_Get_BasePlayerInfo_BySessionid=9002;
-	public const short Game_Global_Get_BasePlayerInfo_And_1_Achievement_ByUserid=9003;
-
-	public const short Game_Global_Get_BasePlayerInfo_And_FullAchievement_ByUserid=9005;
-
-	public const short Game_BetToWin_NoAchievement		=9200;
-
-	public const short MySQL_DataCache_NgocManhBanner=20100;
-
-	public const short Admin_ReloadDatabase				=30000;
-
-
-
-	public static string getCMDName(short cmd){
+	public const short SplashGlobal_GetList_OneHit	= 1;
+	public const short SplashGlobal_GetList_ServerGame_Name	= 2;
+	public const short SplashGlobal_GetList_ServerGame_IP	= 3;
+	public const short SplashGlobal_GetList_ServerGame_Data	= 4;
+	public const short SplashAiO_InfoGame_Android	= 40;
+	public const short SplashAiO_InfoGame_IOS	= 41;
+	public const short SplashAiO_IAPGold_Android	= 50;
+	public const short SplashAiO_IAPGold_IOS	= 51;
+	public const short SplashAiO_IAPDiamond_Android	= 52;
+	public const short SplashAiO_IAPDiamond_IOS	= 53;
+	public const short SplashAiO_IAPInfo_Android	= 80;
+	public const short SplashAiO_IAPInfo_IOS	= 81;
+	public const short NGOCMANH_Forward_SET_LIST_DATA	= 150;
+	public const short NGOCMANH_GET_LIST_DATA	= 151;
+	public const short NGOCMANH_Forward_Commit_Click	= 152;
+	public const short NGOCMANH_Insert_Row	= 160;
+	public const short NGOCMANH_Update_Row	= 161;
+	public const short NGOCMANH_Delete_Row	= 162;
+	public const short NGOCMANH_Get_List_Rows	= 163;
+	public const short NGOCMANH_Get_Row_By_Id	= 164;
+	public const short LGScreen_LoginAccount_0_Device	= 200;
+	public const short LGScreen_LoginAccount_1_System	= 201;
+	public const short LGScreen_LoginAccount_2_Facebook	= 202;
+	public const short LGScreen_LoginAccount_3_Google	= 203;
+	public const short LGScreen_LoginAccount_4_Email	= 204;
+	public const short LGScreen_LoginAccount_5_Apple	= 205;
+	public const short LGScreen_LoginAccount_6_PhoneNumber	= 206;
+	public const short LGScreen_RegisterAccount	= 220;
+	public const short LGScreen_ResetPassword	= 222;
+	public const short LGScreen_LoginToken_0_Device	= 300;
+	public const short LGScreen_LoginToken_1_System	= 301;
+	public const short LGScreen_LoginToken_2_Facebook	= 302;
+	public const short LGScreen_LoginToken_3_Google	= 303;
+	public const short LGScreen_LoginToken_4_Email	= 304;
+	public const short LGScreen_LoginToken_5_Apple	= 305;
+	public const short LGScreen_LoginToken_6_PhoneNumber	= 306;
+	public const short HomeDB_ChangePassword	= 500;
+	public const short HomeDB_GetEmailSecurity	= 501;
+	public const short HomeDB_SetEmailSecurity	= 502;
+	public const short HomeDB_Change_Avatarid	= 505;
+	public const short HomeDB_LoginToken	= 598;
+	public const short HomeDB_RefreshToken	= 599;
+	public const short HomeLeaderboard_TopGold	= 800;
+	public const short HomeLeaderboard_TopDiamond	= 801;
+	public const short HomeLeaderboard_TopGoldDiamond	= 802;
+	public const short HomeShop_InappPurchase_Android	= 900;
+	public const short HomeShop_InappPurchase_IOS_test	= 904;
+	public const short HomeShop_InappPurchase_IOS	= 905;
+	public const short AiOHome_Get_Gold_By_AiOid	= 1020;
+	public const short AiOHome_Get_Subsidy	= 1100;
+	public const short AiOHome_Get_DailyBonus	= 1101;
+	public const short AiOHome_Get_Header_By_aioId	= 1150;
+	public const short AiOHome_Purchase_Android	= 1190;
+	public const short AiOHome_Purchase_IOS_test	= 1194;
+	public const short AiOHome_Purchase_IOS	= 1195;
+	public const short AiOHome__GetPurchaseGoldPrice	= 1250;
+	public const short AiORoomTable_GetListTable_By_gameid	= 2901;
+	public const short AiORoomTable_GetSmartTable_By_gameid	= 2902;
+	public const short AiORoomTable_GetListViewer_in_table	= 2905;
+	public const short Game_House_Get_Version	= 2950;
+	public const short GameTowerDefense_Get_Data	= 3001;
+	public const short GameTowerDefense_Update_Data	= 3002;
+	public const short BoomHome_FirstLogin_HeaderGold_FullData	= 3200;
+	public const short BoomHome_Update_Data	= 3205;
+	public const short BoomHome_Unlock_ThanhTuu	= 3220;
+	public const short BoomHome_Commit_NhiemVu	= 3221;
+	public const short BoomHome_Get_DailyBonus	= 3250;
+	public const short BoomHome_Get_Free_By_VideoReward	= 3251;
+	public const short BoomHome_Get_Shop_Data	= 3280;
+	public const short BoomHome_Shop_Character	= 3281;
+	public const short BoomHome_Shop_Item	= 3282;
+	public const short BoomHome_Shop_Skill	= 3283;
+	public const short VIN_Update_Android	= 6000;
+	public const short VIN_Update_IOS	= 6001;
+	public const short VIN_IAP_Android	= 6002;
+	public const short VIN_IAP_IOS	= 6003;
+	public const short VinHome_FirstLogin_FullData	= 6100;
+	public const short VinHome_Add_GOLD	= 6101;
+	public const short VinHome_Add_DIAMOND	= 6102;
+	public const short VinHome_Add_Egg	= 6103;
+	public const short VinHome_Add_Pet	= 6104;
+	public const short VinHome_Add_Spin	= 6105;
+	public const short VinHome_Add_Medal	= 6120;
+	public const short VinHome_Remove_Medal	= 6121;
+	public const short VinHome_Bonus_Daily	= 6200;
+	public const short VinHome_Use_Spin	= 6202;
+	public const short VinHome_Break_Egg	= 6203;
+	public const short VinHome_Create_PrivateRoom	= 6800;
+	public const short VinHome_Bet_Casino	= 6999;
+	public const short Game_Global_Get_BasePlayerInfo_BySessionid	= 9002;
+	public const short Game_Global_Get_BasePlayerInfo_And_1_Achievement_ByUserid	= 9003;
+	public const short Game_Global_Get_BasePlayerInfo_And_FullAchievement_ByUserid	= 9005;
+	public const short Game_BetToWin_NoAchievement	= 9200;
+	public const short BBWeb_Table_Create_Table	= 10110;
+	public const short BBWeb_Table_Get_Info	= 10120;
+	public const short BBWeb_Table_Config_AccessKey	= 10151;
+	public const short BBWeb_Table_Config_ReadKey	= 10153;
+	public const short BBWeb_Table_Config_WriteKey	= 10155;
+	public const short BBWeb_Table_Config_TokenLifeTime	= 10157;
+	public const short BBWeb_Table_Config_LoginRule	= 10158;
+	public const short BBWeb_Table_Config_MailService	= 10159;
+	public const short BBWeb_Table_Config_DescribeTables	= 10160;
+	public const short BBWeb_Table_Logout_All_Client	= 10170;
+	public const short BBWeb_Table_Delete	= 10190;
+	public const short BBWeb_BinaryRow_Querry_By_Credential	= 10200;
+	public const short BBWeb_BinaryRow_Querry_By_ListUserId	= 10201;
+	public const short BBWeb_BinaryRow_Querry_By_UserIdRange	= 10202;
+	public const short BBWeb_BinaryRow_Querry_By_LatestCreate	= 10203;
+	public const short BBWeb_BinaryRow_Update_Row	= 10235;
+	public const short BBWeb_ParsingRow_Querry_By_Credential	= 10250;
+	public const short BBWeb_ParsingRow_Querry_By_ListUserId	= 10251;
+	public const short BBWeb_ParsingRow_Querry_By_UserIdRange	= 10252;
+	public const short BBWeb_ParsingRow_Querry_By_LatestCreate	= 10253;
+	public const short BBWeb_ParsingRow_Update_UserData	= 10285;
+	public const short BBWeb_Row_Update_AccountStatus	= 10290;
+	public const short BBWeb_Row_Insert_Account	= 10299;
+	public const short BBWeb_SubTable_Create_Leaderboard	= 10300;
+	public const short BBWeb_SubTable_Create_Tile_Binary	= 10305;
+	public const short BBWeb_SubTable_Create_Tile_PrimaryKey	= 10308;
+	public const short BBWeb_SubTable_Create_TileRow_Without_PrimaryKey	= 10309;
+	public const short BBWeb_SubTable_Config_AccessKey	= 10350;
+	public const short BBWeb_SubTable_Config_ReadKey	= 10351;
+	public const short BBWeb_SubTable_Config_WriteKey	= 10352;
+	public const short BBWeb_SubTable_Delete	= 10399;
+	public const short BBWeb_Leaderboard_Config	= 10400;
+	public const short BBWeb_Leaderboard_Querry_Id	= 10420;
+	public const short BBWeb_Leaderboard_FullQuerry_Index	= 10421;
+	public const short BBWeb_Leaderboard_FullQuerry_Range	= 10422;
+	public const short BBWeb_Leaderboard_FullQuerry_Latest	= 10423;
+	public const short BBWeb_Leaderboard_UpdateData	= 10460;
+	public const short BBWeb_Leaderboard_LoadConfig	= 10490;
+	public const short BBWeb_SubTable_Config_DescribeTables	= 10500;
+	public const short BBWeb_SubTable_Querry_Index	= 10520;
+	public const short BBWeb_SubTable_Querry_Range	= 10521;
+	public const short BBWeb_SubTable_Querry_Latest	= 10522;
+	public const short BBWeb_SubTable_FullQuerry_Index	= 10540;
+	public const short BBWeb_SubTable_FullQuerry_Range	= 10541;
+	public const short BBWeb_SubTable_FullQuerry_Latest	= 10542;
+	public const short BBWeb_SubTable_Data_Update	= 10580;
+	public const short BBWeb_SubTileBinary_Config	= 10600;
+	public const short BBWeb_SubTileBinary_Querry_Index	= 10620;
+	public const short BBWeb_SubTileBinary_Querry_Range	= 10621;
+	public const short BBWeb_SubTileBinary_Querry_Latest	= 10622;
+	public const short BBWeb_SubTileBinary_Data_Insert	= 10650;
+	public const short BBWeb_SubTileBinary_Data_Update	= 10680;
+	public const short BBWeb_SubTileRow_Config	= 10700;
+	public const short BBWeb_SubTileRow_Querry_Index	= 10720;
+	public const short BBWeb_SubTileRow_Querry_Range	= 10721;
+	public const short BBWeb_SubTileRow_Querry_Latest	= 10722;
+	public const short BBWeb_SubTileRow_Data_Insert	= 10750;
+	public const short BBWeb_SubTileRow_Data_Update	= 10780;
+	public const short BBWeb_Tile_Create	= 10800;
+	public const short BBWeb_Tile_Config	= 10801;
+	public const short BBWeb_Tile_Delete	= 10802;
+	public const short BBWeb_TileData_Querry	= 10820;
+	public const short BBWeb_TileData_Insert	= 10840;
+	public const short BBWeb_TileData_Update	= 10860;
+	public const short BBWeb_TileData_Delete	= 10890;
+	public const short BBWeb_Sync_GetVersion	= 10900;
+	public const short BBWeb_Sync_BeginDownload	= 10905;
+	public const short BBClient_Table_Login_Without_Password	= 11000;
+	public const short BBClient_Table_Login_With_Password	= 11001;
+	public const short BBClient_Table_SignUpAccount_CreateAccount	= 11005;
+	public const short BBClient_Table_SignUpEmail_Request_EmailCode	= 11007;
+	public const short BBClient_Table_SignUpEmail_Complete_VerifyCode	= 11008;
+	public const short BBClient_Table_SignUpEmail_Forgot_Password	= 11009;
+	public const short BBClient_Home_Change_Password	= 11020;
+	public const short BBClient_Lobby_Get_UserData	= 11029;
+	public const short BBClient_TableRow_Update_Data	= 11030;
+	public const short BBClient_TableRow_Update_DataType	= 11031;
+	public const short BBWeb_Test_Time_Avaiable	= 19998;
+	public const short BBWeb_Row_Random_Account	= 19999;
+	public const short MySQL_DataCache_NgocManhBanner	= 20100;
+	public const short Admin_ReloadDatabase	= 30000;
+	/////////////////////////////////////////////////
+	/////////////////////////////////////////////////
+	/////////////////////////////////////////////////
+	public static string getName(MessageSending messageSending){return getName(messageSending.getCMD());}
+	public static string getName(MessageReceiving messageSending){return getName(messageSending.getCMD());}
+	public static string getName(short cmd){
 		switch(cmd){
-			#if TEST
-			case 1: return "SplashGlobal_GetList_OneHit(1)";
-			case 2: return "SplashGlobal_GetList_ServerGame_Name(2)";
-			case 3: return "SplashGlobal_GetList_ServerGame_IP(3)";
-			case 4: return "SplashGlobal_GetList_ServerGame_Data(4)";
-			case LGScreen_LoginAccount_0_Device: return "LGScreen_LoginAccount_0_Device";
-			case 41: return "SplashAiO_InfoGame_IOS(41)";
-			case 50: return "SplashAiO_IAPGold_Android(50)";
-			case 51: return "SplashAiO_IAPGold_IOS(51)";
-			case 52: return "SplashAiO_IAPDiamond_Android(52)";
-			case 53: return "SplashAiO_IAPDiamond_IOS(53)";
-			case 80: return "SplashAiO_IAPInfo_Android(80)";
-			case 81: return "SplashAiO_IAPInfo_IOS(81)";
-			case 150: return "NGOCMANH_Forward_SET_LIST_DATA(150)";
-			case 151: return "NGOCMANH_GET_LIST_DATA(151)";
-			case 152: return "NGOCMANH_Forward_Commit_Click(152)";
-			case 160: return "NGOCMANH_Insert_Row(160)";
-			case 161: return "NGOCMANH_Update_Row(161)";
-			case 162: return "NGOCMANH_Delete_Row(162)";
-			case 163: return "NGOCMANH_Get_List_Rows(163)";
-			case 164: return "NGOCMANH_Get_Row_By_Id(164)";
-			case 200: return "LGScreen_LoginAccount_0_Device(200)";
-			case 201: return "LGScreen_LoginAccount_1_System(201)";
-			case 202: return "LGScreen_LoginAccount_2_Facebook(202)";
-			case 203: return "LGScreen_LoginAccount_3_Google(203)";
-			case 204: return "LGScreen_LoginAccount_4_Email(204)";
-			case 205: return "LGScreen_LoginAccount_5_Apple(205)";
-			case 206: return "LGScreen_LoginAccount_6_PhoneNumber(206)";
-			case 220: return "LGScreen_RegisterAccount(220)";
-			case 222: return "LGScreen_ResetPassword(222)";
-			case 300: return "LGScreen_LoginToken_0_Device(300)";
-			case 301: return "LGScreen_LoginToken_1_System(301)";
-			case 302: return "LGScreen_LoginToken_2_Facebook(302)";
-			case 303: return "LGScreen_LoginToken_3_Google(303)";
-			case 304: return "LGScreen_LoginToken_4_Email(304)";
-			case 305: return "LGScreen_LoginToken_5_Apple(305)";
-			case 306: return "LGScreen_LoginToken_6_PhoneNumber(306)";
-			case 500: return "HomeDB_ChangePassword(500)";
-			case 501: return "HomeDB_GetEmailSecurity(501)";
-			case 502: return "HomeDB_SetEmailSecurity(502)";
-			case 505: return "HomeDB_Change_Avatarid(505)";
-			case 598: return "HomeDB_LoginToken(598)";
-			case 599: return "HomeDB_RefreshToken(599)";
-			case 800: return "AiOHome_GetTopGold(800)";
-			case 801: return "AiOHome_GetTopDiamond(801)";
-			case 802: return "AiOHome_GetTopGoldDiamond(802)";
-			case 1000: return "FirstLogin_FullData_AIO(1000)";
-			case 1001: return "FirstLogin_FullData_AIO_Boom(1001)";
-			case 1002: return "FirstLogin_FullData_AIO_TowerDefense(1002)";
-			case 1003: return "FirstLogin_FullData_AIO_Boom_TowerDefense(1003)";
-			case 1020: return "AiOHome_Get_Gold_By_AiOid(1020)";
-			case 1100: return "AiOHome_Get_Subsidy(1100)";
-			case 1101: return "AiOHome_Get_DailyBonus(1101)";
-			case 1150: return "AiOHome_Get_Header_By_aioId(1150)";
-			case 1200: return "AiOShop_BuyInappPurchase_Android(1200)";
-			case 1220: return "AiOShop_BuyInappPurchase_Ios(1220)";
-			case 1221: return "AiOShop_BuyInappPurchase_Ios_test(1221)";
-			case 1250: return "AiOHome__GetPurchaseGoldPrice(1250)";
-			case 2901: return "AiORoomTable_GetListTable_By_gameid(2901)";
-			case 2902: return "AiORoomTable_GetSmartTable_By_gameid(2902)";
-			case 2905: return "AiORoomTable_GetListViewer_in_table(2905)";
-			case 2950: return "Game_House_Get_Version(2950)";
-			case 3001: return "GameTowerDefense_Get_Data(3001)";
-			case 3002: return "GameTowerDefense_Update_Data(3002)";
-			case 3200: return "BoomHome_FirstLogin_HeaderGold_FullData(3200)";
-			case 3205: return "BoomHome_Update_Data(3205)";
-			case 3220: return "BoomHome_Unlock_ThanhTuu(3220)";
-			case 3221: return "BoomHome_Commit_NhiemVu(3221)";
-			case 3250: return "BoomHome_Get_DailyBonus(3250)";
-			case 3251: return "BoomHome_Get_Free_By_VideoReward(3251)";
-			case 3280: return "BoomHome_Get_Shop_Data(3280)";
-			case 3281: return "BoomHome_Shop_Character(3281)";
-			case 3282: return "BoomHome_Shop_Item(3282)";
-			case 3283: return "BoomHome_Shop_Skill(3283)";
-			case 6000: return "VIN_Update_Android(6000)";
-			case 6001: return "VIN_Update_IOS(6001)";
-			case 6002: return "VIN_IAP_Android(6002)";
-			case 6003: return "VIN_IAP_IOS(6003)";
-			case 6100: return "VinHome_FirstLogin_FullData(6100)";
-			case 6101: return "VinHome_Add_GOLD(6101)";
-			case 6102: return "VinHome_Add_DIAMOND(6102)";
-			case 6103: return "VinHome_Add_Egg(6103)";
-			case 6104: return "VinHome_Add_Pet(6104)";
-			case 6105: return "VinHome_Add_Spin(6105)";
-			case 6120: return "VinHome_Add_Medal(6120)";
-			case 6121: return "VinHome_Remove_Medal(6121)";
-			case 6200: return "VinHome_Bonus_Daily(6200)";
-			case 6202: return "VinHome_Use_Spin(6202)";
-			case 6203: return "VinHome_Break_Egg(6203)";
-			case 6800: return "VinHome_Create_PrivateRoom(6800)";
-			case 6999: return "VinHome_Bet_Casino(6999)";
-			case 9002: return "Game_Global_Get_BasePlayerInfo_BySessionid(9002)";
-			case 9003: return "Game_Global_Get_BasePlayerInfo_And_1_Achievement_ByUserid(9003)";
-			case 9005: return "Game_Global_Get_BasePlayerInfo_And_FullAchievement_ByUserid(9005)";
-			case 9200: return "Game_BetToWin_NoAchievement(9200)";
-			case 20100: return "MySQL_DataCache_NgocManhBanner(20100)";
-			case 30000: return "Admin_ReloadDatabase(30000)";
-			#endif
-			default : return cmd+"";
+			case 1:return "SplashGlobal_GetList_OneHit";
+			case 2:return "SplashGlobal_GetList_ServerGame_Name";
+			case 3:return "SplashGlobal_GetList_ServerGame_IP";
+			case 4:return "SplashGlobal_GetList_ServerGame_Data";
+			case 40:return "SplashAiO_InfoGame_Android";
+			case 41:return "SplashAiO_InfoGame_IOS";
+			case 50:return "SplashAiO_IAPGold_Android";
+			case 51:return "SplashAiO_IAPGold_IOS";
+			case 52:return "SplashAiO_IAPDiamond_Android";
+			case 53:return "SplashAiO_IAPDiamond_IOS";
+			case 80:return "SplashAiO_IAPInfo_Android";
+			case 81:return "SplashAiO_IAPInfo_IOS";
+			case 150:return "NGOCMANH_Forward_SET_LIST_DATA";
+			case 151:return "NGOCMANH_GET_LIST_DATA";
+			case 152:return "NGOCMANH_Forward_Commit_Click";
+			case 160:return "NGOCMANH_Insert_Row";
+			case 161:return "NGOCMANH_Update_Row";
+			case 162:return "NGOCMANH_Delete_Row";
+			case 163:return "NGOCMANH_Get_List_Rows";
+			case 164:return "NGOCMANH_Get_Row_By_Id";
+			case 200:return "LGScreen_LoginAccount_0_Device";
+			case 201:return "LGScreen_LoginAccount_1_System";
+			case 202:return "LGScreen_LoginAccount_2_Facebook";
+			case 203:return "LGScreen_LoginAccount_3_Google";
+			case 204:return "LGScreen_LoginAccount_4_Email";
+			case 205:return "LGScreen_LoginAccount_5_Apple";
+			case 206:return "LGScreen_LoginAccount_6_PhoneNumber";
+			case 220:return "LGScreen_RegisterAccount";
+			case 222:return "LGScreen_ResetPassword";
+			case 300:return "LGScreen_LoginToken_0_Device";
+			case 301:return "LGScreen_LoginToken_1_System";
+			case 302:return "LGScreen_LoginToken_2_Facebook";
+			case 303:return "LGScreen_LoginToken_3_Google";
+			case 304:return "LGScreen_LoginToken_4_Email";
+			case 305:return "LGScreen_LoginToken_5_Apple";
+			case 306:return "LGScreen_LoginToken_6_PhoneNumber";
+			case 500:return "HomeDB_ChangePassword";
+			case 501:return "HomeDB_GetEmailSecurity";
+			case 502:return "HomeDB_SetEmailSecurity";
+			case 505:return "HomeDB_Change_Avatarid";
+			case 598:return "HomeDB_LoginToken";
+			case 599:return "HomeDB_RefreshToken";
+			case 800:return "HomeLeaderboard_TopGold";
+			case 801:return "HomeLeaderboard_TopDiamond";
+			case 802:return "HomeLeaderboard_TopGoldDiamond";
+			case 900:return "HomeShop_InappPurchase_Android";
+			case 904:return "HomeShop_InappPurchase_IOS_test";
+			case 905:return "HomeShop_InappPurchase_IOS";
+			case 1020:return "AiOHome_Get_Gold_By_AiOid";
+			case 1100:return "AiOHome_Get_Subsidy";
+			case 1101:return "AiOHome_Get_DailyBonus";
+			case 1150:return "AiOHome_Get_Header_By_aioId";
+			case 1190:return "AiOHome_Purchase_Android";
+			case 1194:return "AiOHome_Purchase_IOS_test";
+			case 1195:return "AiOHome_Purchase_IOS";
+			case 1250:return "AiOHome__GetPurchaseGoldPrice";
+			case 2901:return "AiORoomTable_GetListTable_By_gameid";
+			case 2902:return "AiORoomTable_GetSmartTable_By_gameid";
+			case 2905:return "AiORoomTable_GetListViewer_in_table";
+			case 2950:return "Game_House_Get_Version";
+			case 3001:return "GameTowerDefense_Get_Data";
+			case 3002:return "GameTowerDefense_Update_Data";
+			case 3200:return "BoomHome_FirstLogin_HeaderGold_FullData";
+			case 3205:return "BoomHome_Update_Data";
+			case 3220:return "BoomHome_Unlock_ThanhTuu";
+			case 3221:return "BoomHome_Commit_NhiemVu";
+			case 3250:return "BoomHome_Get_DailyBonus";
+			case 3251:return "BoomHome_Get_Free_By_VideoReward";
+			case 3280:return "BoomHome_Get_Shop_Data";
+			case 3281:return "BoomHome_Shop_Character";
+			case 3282:return "BoomHome_Shop_Item";
+			case 3283:return "BoomHome_Shop_Skill";
+			case 6000:return "VIN_Update_Android";
+			case 6001:return "VIN_Update_IOS";
+			case 6002:return "VIN_IAP_Android";
+			case 6003:return "VIN_IAP_IOS";
+			case 6100:return "VinHome_FirstLogin_FullData";
+			case 6101:return "VinHome_Add_GOLD";
+			case 6102:return "VinHome_Add_DIAMOND";
+			case 6103:return "VinHome_Add_Egg";
+			case 6104:return "VinHome_Add_Pet";
+			case 6105:return "VinHome_Add_Spin";
+			case 6120:return "VinHome_Add_Medal";
+			case 6121:return "VinHome_Remove_Medal";
+			case 6200:return "VinHome_Bonus_Daily";
+			case 6202:return "VinHome_Use_Spin";
+			case 6203:return "VinHome_Break_Egg";
+			case 6800:return "VinHome_Create_PrivateRoom";
+			case 6999:return "VinHome_Bet_Casino";
+			case 9002:return "Game_Global_Get_BasePlayerInfo_BySessionid";
+			case 9003:return "Game_Global_Get_BasePlayerInfo_And_1_Achievement_ByUserid";
+			case 9005:return "Game_Global_Get_BasePlayerInfo_And_FullAchievement_ByUserid";
+			case 9200:return "Game_BetToWin_NoAchievement";
+			case 10110:return "BBWeb_Table_Create_Table";
+			case 10120:return "BBWeb_Table_Get_Info";
+			case 10151:return "BBWeb_Table_Config_AccessKey";
+			case 10153:return "BBWeb_Table_Config_ReadKey";
+			case 10155:return "BBWeb_Table_Config_WriteKey";
+			case 10157:return "BBWeb_Table_Config_TokenLifeTime";
+			case 10158:return "BBWeb_Table_Config_LoginRule";
+			case 10159:return "BBWeb_Table_Config_MailService";
+			case 10160:return "BBWeb_Table_Config_DescribeTables";
+			case 10170:return "BBWeb_Table_Logout_All_Client";
+			case 10190:return "BBWeb_Table_Delete";
+			case 10200:return "BBWeb_BinaryRow_Querry_By_Credential";
+			case 10201:return "BBWeb_BinaryRow_Querry_By_ListUserId";
+			case 10202:return "BBWeb_BinaryRow_Querry_By_UserIdRange";
+			case 10203:return "BBWeb_BinaryRow_Querry_By_LatestCreate";
+			case 10235:return "BBWeb_BinaryRow_Update_Row";
+			case 10250:return "BBWeb_ParsingRow_Querry_By_Credential";
+			case 10251:return "BBWeb_ParsingRow_Querry_By_ListUserId";
+			case 10252:return "BBWeb_ParsingRow_Querry_By_UserIdRange";
+			case 10253:return "BBWeb_ParsingRow_Querry_By_LatestCreate";
+			case 10285:return "BBWeb_ParsingRow_Update_UserData";
+			case 10290:return "BBWeb_Row_Update_AccountStatus";
+			case 10299:return "BBWeb_Row_Insert_Account";
+			case 10300:return "BBWeb_SubTable_Create_Leaderboard";
+			case 10305:return "BBWeb_SubTable_Create_Tile_Binary";
+			case 10308:return "BBWeb_SubTable_Create_Tile_PrimaryKey";
+			case 10309:return "BBWeb_SubTable_Create_TileRow_Without_PrimaryKey";
+			case 10350:return "BBWeb_SubTable_Config_AccessKey";
+			case 10351:return "BBWeb_SubTable_Config_ReadKey";
+			case 10352:return "BBWeb_SubTable_Config_WriteKey";
+			case 10399:return "BBWeb_SubTable_Delete";
+			case 10400:return "BBWeb_Leaderboard_Config";
+			case 10420:return "BBWeb_Leaderboard_Querry_Id";
+			case 10421:return "BBWeb_Leaderboard_FullQuerry_Index";
+			case 10422:return "BBWeb_Leaderboard_FullQuerry_Range";
+			case 10423:return "BBWeb_Leaderboard_FullQuerry_Latest";
+			case 10460:return "BBWeb_Leaderboard_UpdateData";
+			case 10490:return "BBWeb_Leaderboard_LoadConfig";
+			case 10500:return "BBWeb_SubTable_Config_DescribeTables";
+			case 10520:return "BBWeb_SubTable_Querry_Index";
+			case 10521:return "BBWeb_SubTable_Querry_Range";
+			case 10522:return "BBWeb_SubTable_Querry_Latest";
+			case 10540:return "BBWeb_SubTable_FullQuerry_Index";
+			case 10541:return "BBWeb_SubTable_FullQuerry_Range";
+			case 10542:return "BBWeb_SubTable_FullQuerry_Latest";
+			case 10580:return "BBWeb_SubTable_Data_Update";
+			case 10600:return "BBWeb_SubTileBinary_Config";
+			case 10620:return "BBWeb_SubTileBinary_Querry_Index";
+			case 10621:return "BBWeb_SubTileBinary_Querry_Range";
+			case 10622:return "BBWeb_SubTileBinary_Querry_Latest";
+			case 10650:return "BBWeb_SubTileBinary_Data_Insert";
+			case 10680:return "BBWeb_SubTileBinary_Data_Update";
+			case 10700:return "BBWeb_SubTileRow_Config";
+			case 10720:return "BBWeb_SubTileRow_Querry_Index";
+			case 10721:return "BBWeb_SubTileRow_Querry_Range";
+			case 10722:return "BBWeb_SubTileRow_Querry_Latest";
+			case 10750:return "BBWeb_SubTileRow_Data_Insert";
+			case 10780:return "BBWeb_SubTileRow_Data_Update";
+			case 10800:return "BBWeb_Tile_Create";
+			case 10801:return "BBWeb_Tile_Config";
+			case 10802:return "BBWeb_Tile_Delete";
+			case 10820:return "BBWeb_TileData_Querry";
+			case 10840:return "BBWeb_TileData_Insert";
+			case 10860:return "BBWeb_TileData_Update";
+			case 10890:return "BBWeb_TileData_Delete";
+			case 10900:return "BBWeb_Sync_GetVersion";
+			case 10905:return "BBWeb_Sync_BeginDownload";
+			case 11000:return "BBClient_Table_Login_Without_Password";
+			case 11001:return "BBClient_Table_Login_With_Password";
+			case 11005:return "BBClient_Table_SignUpAccount_CreateAccount";
+			case 11007:return "BBClient_Table_SignUpEmail_Request_EmailCode";
+			case 11008:return "BBClient_Table_SignUpEmail_Complete_VerifyCode";
+			case 11009:return "BBClient_Table_SignUpEmail_Forgot_Password";
+			case 11020:return "BBClient_Home_Change_Password";
+			case 11029:return "BBClient_Lobby_Get_UserData";
+			case 11030:return "BBClient_TableRow_Update_Data";
+			case 11031:return "BBClient_TableRow_Update_DataType";
+			case 19998:return "BBWeb_Test_Time_Avaiable";
+			case 19999:return "BBWeb_Row_Random_Account";
+			case 20100:return "MySQL_DataCache_NgocManhBanner";
+			case 30000:return "Admin_ReloadDatabase";
+			default:return "CMD("+cmd+")";
 		}
 	}
-	public static string getCMDName(MessageSending messageSending){return getCMDName(messageSending.getCMD());}
-	public static string getCMDName(MessageReceiving messageSending){return getCMDName(messageSending.getCMD());}
 }

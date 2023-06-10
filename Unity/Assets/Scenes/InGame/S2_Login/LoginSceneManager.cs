@@ -77,6 +77,10 @@ public class LoginSceneManager : MonoBehaviour{
 
     public void onLoginAdsId(){
         Debug.Log("onLoginAdsId");
+		Application.RequestAdvertisingIdentifierAsync((string advertisingId, bool trackingEnabled, string error) =>{
+            Debug.Log("advertisingId("+advertisingId+") trackingEnabled("+trackingEnabled+")    error("+error+")");
+			
+		});
     }
 
     public void onLoginEmailCode(){
