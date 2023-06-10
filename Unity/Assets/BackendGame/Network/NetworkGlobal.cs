@@ -36,7 +36,7 @@ public class NetworkGlobal : MonoBehaviour{
 
 
 
-
+    public const int SOCKET_BUFFER=8192;
     private static NetworkGlobal ins = null;
     public static NetworkGlobal instance{
         get{

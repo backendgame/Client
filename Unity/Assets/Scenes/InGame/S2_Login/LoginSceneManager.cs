@@ -33,8 +33,19 @@ public class LoginSceneManager : MonoBehaviour{
 
     public void onLoginFacebook(){
         Debug.Log("onLoginFacebook");
+        /*
+            Login with Facebook SDK
+            1/ Create Application : https://developers.facebook.com
+            2/ Add this Application to a Business (organization) → token_for_business
+            3/ install facebook sdk on Unity
+            4/ Login with facebook
+        */
+        LoginScreenOnehit.LoginFacebook(inputFacebookToken.text);
     }
-    public void onGetFacebookToken(){}
+    public void onGetFacebookToken(){
+        Application.OpenURL("https://developers.facebook.com/tools/explorer/");
+        Debug.Log("or : https://developers.facebook.com/tools/accesstoken/?app_id= + AppId");
+    }
 
     public void onGetGoogleCode(){Application.OpenURL("https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=profile%20email&redirect_uri=" + BGConfig.LoginGoogle_Authorised_redirect_URIs + "&client_id=" + BGConfig.LoginGoogle_Client_ID);}
     public void onLoginGoogle(){

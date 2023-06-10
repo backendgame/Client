@@ -114,4 +114,8 @@ public class LoginScreenOnehit{
     public static void LoginGoogle(string id_token){
 
     }
+
+    public static void  LoginFacebook(string tokenFacebook){
+
+    }
 }

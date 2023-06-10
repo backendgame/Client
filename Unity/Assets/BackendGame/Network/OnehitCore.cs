@@ -85,13 +85,32 @@ public class OnehitCore{
         if(length==0){
             onSuccess();
             return;
-        }else if(length==int.MinValue){
+        }else if(length==-7){
             onError("ERROR(CMD not found)");
+            return;
+        }else if (length < 0){
+            onError("Server SOCKET_LENGTH_ERROR("+length+")");
             return;
         }
 
-        datatransfer = new byte[length + 2];
-        if (length > -1) {
+        datatransfer = new byte[length+2];
+        if(length+4>NetworkGlobal.SOCKET_BUFFER){
+            for(int i=0;i<length;i++){
+                if((i+4)%NetworkGlobal.SOCKET_BUFFER==0)
+                    networkStream.WriteByte(0);
+
+                if(Wait(1))
+                    datatransfer[i+2]= (byte)networkStream.ReadByte();
+                else{
+                    onError("SOCKET_RECEIVE_TIMEOUT");
+                    return;
+                }
+            }
+            messageReceiving=new MessageReceiving(datatransfer);
+            messageReceiving.cmd = messageSending.getCMD();
+            messageReceiving.timeProcess = DateTimeUtil.currentUtcTimeMilliseconds-timeBeginProcess;
+            onSuccess();
+        }else{
             if (Wait(length)){
                 networkStream.Read(datatransfer, 2, length);
                 for (short i = 0; i < length; i++)
@@ -101,10 +120,28 @@ public class OnehitCore{
                 messageReceiving.cmd = messageSending.getCMD();
                 messageReceiving.timeProcess = DateTimeUtil.currentUtcTimeMilliseconds-timeBeginProcess;
                 onSuccess();
-            }else
+            }else{
                 onError("SOCKET_RECEIVE_TIMEOUT");
-        }else
-            onError("Server SOCKET_LENGTH_ERROR("+length+")");
+                return;
+            }
+        }
+
+
+
+        // datatransfer = new byte[length + 2];
+        // if (length > -1) {
+        //     if (Wait(length)){
+        //         networkStream.Read(datatransfer, 2, length);
+        //         for (short i = 0; i < length; i++)
+        //             datatransfer[i + 2] = (byte)(datatransfer[i + 2] ^ validateCode);
+        //         messageReceiving=new MessageReceiving(datatransfer);
+        //         messageReceiving.cmd = messageSending.getCMD();
+        //         messageReceiving.timeProcess = DateTimeUtil.currentUtcTimeMilliseconds-timeBeginProcess;
+        //         onSuccess();
+        //     }else
+        //         onError("SOCKET_RECEIVE_TIMEOUT");
+        // }else
+        //     onError("Server SOCKET_LENGTH_ERROR("+length+")");
     }
     private bool Wait(int _length) {
         for (int i = 0; i < 600; i++)
