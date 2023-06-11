@@ -88,5 +88,13 @@ public class LoginSceneManager : MonoBehaviour{
     }
     public void onGetEmailCode(){
         Debug.Log("onGetCode");
+
+
+        List<int> test =new List<int>(new int[5]);
+
+        test[2]=1;
+        test[3]=5;
+
+        Debug.Log(test.ToString());
     }
 }

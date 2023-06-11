@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
 public class BGTable{
     public short DBId;
     public short TableId;
@@ -10,7 +7,7 @@ public class BGTable{
     public long ReadKey;
     public long WriteKey;
 
-    public List<BGDescribe> listDescribeTable;
+    public List<BGDB_Describe> listDescribeTable;
 
     public BGTable(){}
     public BGTable(short dbID,short tableId,long accessKey,long readKey,long writeKey){

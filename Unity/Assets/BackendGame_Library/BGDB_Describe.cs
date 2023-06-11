@@ -1,4 +1,4 @@
-public class BGDescribe{
+public class BGDB_Describe{
 	public string ColumnName;
 	public int ViewId;
 	public bool Indexing;

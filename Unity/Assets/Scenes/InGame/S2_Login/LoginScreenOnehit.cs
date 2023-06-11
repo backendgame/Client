@@ -15,10 +15,10 @@ public class LoginScreenOnehit{
         myPlayer.status = messageReceiving.readByte();
         myPlayer.logoutId = messageReceiving.readByte();
 
-        List<BGDescribe> listDescribe=new List<BGDescribe>();
+        List<BGDB_Describe> listDescribe=new List<BGDB_Describe>();
         int numberDescribe = messageReceiving.readInt();
         for(int i=0;i<numberDescribe;i++){
-            BGDescribe desTable = new BGDescribe();
+            BGDB_Describe desTable = new BGDB_Describe();
             desTable.readMessage(messageReceiving);
             listDescribe.Add(desTable);
         }

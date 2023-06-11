@@ -1386,7 +1386,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1228780703}
         m_TargetAssemblyTypeName: LoginSceneManager, Assembly-CSharp
-        m_MethodName: onGetCode
+        m_MethodName: onGetEmailCode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
