@@ -11,8 +11,12 @@ public class SplashSceneManager : MonoBehaviour{
 
     void Start(){
         NetworkGlobal.instance.StartOnehit(new MessageSending(1),(messageReceiving,isError)=>{
-            messageReceiving.readByte();
-            SceneManager.LoadScene("LoginScene");
+            if(isError){
+                Debug.Log("Please fill in IP Address and Port");
+            }else{
+                messageReceiving.readByte();
+                SceneManager.LoadScene("LoginScene");
+            }
         });
     }
 

@@ -30,9 +30,9 @@ public class BGDB_Describe{
 			DefaultValue = messageReceiving.readDouble();
 		else if(99<Type && Type<120)
 			DefaultValue = messageReceiving.readByteArray();
-		else if(Type==DBDefine_DataType.STRING) {
+		else if(Type==BG_DataType.STRING) {
 			DefaultValue = messageReceiving.readString();
-		}else if(Type==DBDefine_DataType.IPV6)
+		}else if(Type==BG_DataType.IPV6)
 			DefaultValue = messageReceiving.readSpecialArray_WithoutLength(16);
     }
 
@@ -59,9 +59,9 @@ public class BGDB_Describe{
 			messageSending.writeDouble((double) DefaultValue);
 		else if(99<Type && Type<120)
 			messageSending.writeByteArray((byte[]) DefaultValue);
-		else if(Type==DBDefine_DataType.STRING) {
+		else if(Type==BG_DataType.STRING) {
 			messageSending.writeString((string) DefaultValue);
-		}else if(Type==DBDefine_DataType.IPV6)
+		}else if(Type==BG_DataType.IPV6)
 			messageSending.writeSpecialArray_WithoutLength((byte[]) DefaultValue);
 	}
 }

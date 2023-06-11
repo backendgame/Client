@@ -1,4 +1,4 @@
-public class DBDefine_DataType{
+public class BG_DataType{
     public const sbyte BOOLEAN	= 1;
     public const sbyte BYTE	= 10;
     public const sbyte STATUS	= 11;

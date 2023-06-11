@@ -135,9 +135,9 @@ public class MessageReceiving {
 			return readDouble();
 		else if(99<Type && Type<120)
 			return readByteArray();
-		else if(Type==DBDefine_DataType.STRING) {
+		else if(Type==BG_DataType.STRING) {
 			return readString();
-		}else if(Type==DBDefine_DataType.IPV6)
+		}else if(Type==BG_DataType.IPV6)
 			return readSpecialArray_WithoutLength(16);
 		else
 			return null;

@@ -7,7 +7,7 @@ public class BGDB_Database{
     
 
     public BGDB_TableAccountLogin tableAccountLogin;
-    public List<BGDB_BaseTable> listTable;
+    private List<BGDB_BaseTable> listTable;
 
     public BGDB_Database(){
         init(0,null,null,0);
@@ -26,5 +26,7 @@ public class BGDB_Database{
         listTable=new List<BGDB_BaseTable>();
     }
 
-
+    public void Add(BGDB_BaseTable table){
+        listTable.Add(table);
+    }
 }

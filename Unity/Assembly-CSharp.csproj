@@ -36,26 +36,35 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\BackendGame_Library\BGDB_Describe.cs" />
+     <Compile Include="Assets\Scenes\BackendGame_Data\Database.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\Alert\Dialog_Alert.cs" />
      <Compile Include="Assets\Scenes\Global\GlobalCanvas.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\Dialog_YesNo_Input.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_TableRow.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_Table1Primary.cs" />
      <Compile Include="Assets\Scenes\Global\LocalDataManager.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Input\GoogleSignIn_UnityEditor.cs" />
      <Compile Include="Assets\Scenes\BackendGame_Data\CMD_REALTIME.cs" />
-     <Compile Include="Assets\BackendGame_Library\DBDefine_DataType.cs" />
      <Compile Include="Assets\BackendGame_Library\BGTable.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_Database.cs" />
      <Compile Include="Assets\Scenes\Config\BGInfo.cs" />
      <Compile Include="Assets\BackendGame_Library\Network\OneHitGame.cs" />
      <Compile Include="Assets\Scenes\InGame\S2_Login\LoginScreenOnehit.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_TableLeaderboard.cs" />
      <Compile Include="Assets\BackendGame_Library\Network\MessageSending.cs" />
      <Compile Include="Assets\Scenes\Config\BGConfig.cs" />
      <Compile Include="Assets\BackendGame_Library\Network\ServerDetail.cs" />
      <Compile Include="Assets\BackendGame_Library\Network\MessageReceiving.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_Table2Primary.cs" />
      <Compile Include="Assets\Scenes\BackendGame_Data\CMD_ONEHIT.cs" />
      <Compile Include="Assets\Scenes\InGame\S2_Login\LoginSceneManager.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_TableLineNode.cs" />
      <Compile Include="Assets\Scenes\InGame\S5_Leaderboard\LeaderboardSceneManager.cs" />
      <Compile Include="Assets\Scenes\InGame\S3_Home\HomeSceneManager.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_BaseTable.cs" />
      <Compile Include="Assets\Scenes\Config\PlayerData.cs" />
+     <Compile Include="Assets\BackendGame_Library\BGDB_TableAccountLogin.cs" />
      <Compile Include="Assets\Scenes\BackendGame_Data\StatusOnehit.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\Loading\Dialog_Loading.cs" />
      <Compile Include="Assets\Scenes\InGame\S1_Splash\SplashSceneManager.cs" />
@@ -63,16 +72,7 @@
      <Compile Include="Assets\BackendGame_Library\Network\OnehitCore.cs" />
      <Compile Include="Assets\Scenes\Global\Dialog\YesNo_Text\Dialog_YesNo_Text.cs" />
      <Compile Include="Assets\BackendGame_Library\Network\NetworkGlobal.cs" />
-     <Compile Include="Assets\Scenes\BackendGame_Data\Database.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_Database.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_TableAccountLogin.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_BaseTable.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_Table1Primary.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_Table2Primary.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_TableRow.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_TableLineNode.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_TableLeaderboard.cs" />
-     <Compile Include="Assets\BackendGame_Library\BGDB_Describe.cs" />
+     <Compile Include="Assets\BackendGame_Library\BG_DataType.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
