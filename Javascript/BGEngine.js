@@ -144,10 +144,10 @@ class BGEngine{//Lớp cha chứa vòng lặp game
 	}
 	changeScene(_scene){
 		let _old = this.gameloop;
+		_scene.ctx=this.ctx;
 		_scene.onInit();
 		this.gameloop = _scene;
 		_old.onRelease();
-		_scene.ctx=this.ctx;
 		console.log("Change Scene "+_old.sceneName+" → "+_scene.sceneName);
 	}
 	tickGameLoop(){
