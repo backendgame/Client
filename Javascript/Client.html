@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Đua ngựa</title>
-	<link rel="icon" type="image/x-icon" href="data:image/png;base64, chuyển png thành Base64 vào chỗ này">
+	<!-- <link rel="icon" type="image/x-icon" href="data:image/png;base64, chuyển png thành Base64 vào chỗ này"> -->
 	<script src="BGEngine.js"></script>
 </head>
 
@@ -30,7 +30,7 @@
 				this.ctx.font = "48px serif";
 			}
 			onUpdate(){
-				console.log("Vòng lặp game đang chạy trong Scene("+this.sceneName+") với FPS("+gameEngine.FPS+"). Vui lòng xóa log này để dev tiếp");
+				console.log("GameLoop working in Scene("+this.sceneName+") → FPS("+gameEngine.FPS+"). Remove this line for developing");
 
 				gameEngine.ctx.strokeStyle = "yellow";
 				gameEngine.ctx.beginPath(); 
