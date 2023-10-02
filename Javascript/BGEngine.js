@@ -3,6 +3,7 @@ class MessageSending{
 		this.cmd=CMD;
 		this.data=[];
 		this.currentWriting=0;
+		this.writeShort(CMD);
 	}
 
 	writeByte(byteValue){this.data[this.currentWriting++] = byteValue & 0xFF;}
@@ -18,11 +19,11 @@ class MessageSending{
 	}
 	writeFloat(floatValue){
 		let _dataView = new DataView(new ArrayBuffer(4));
-		_dataView.setFloat32(0,floatValue,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(0,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(1,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(2,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(3,true);
+		_dataView.setFloat32(0,floatValue);
+		this.data[this.currentWriting++] = _dataView.getUint8(0);
+		this.data[this.currentWriting++] = _dataView.getUint8(1);
+		this.data[this.currentWriting++] = _dataView.getUint8(2);
+		this.data[this.currentWriting++] = _dataView.getUint8(3);
 	}
 	writeLong(longValue){
 		this.data[this.currentWriting++] = (longValue>>>56) & 0xFF;
@@ -36,15 +37,21 @@ class MessageSending{
 	}
 	writeDouble(doubleValue){
 		let _dataView = new DataView(new ArrayBuffer(8));
-		_dataView.setFloat64(0,doubleValue,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(0,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(1,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(2,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(3,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(4,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(5,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(6,true);
-		this.data[this.currentWriting++] = _dataView.getInt16(7,true);
+		_dataView.setFloat64(0,doubleValue);
+		this.data[this.currentWriting++] = _dataView.getUint8(0);
+		this.data[this.currentWriting++] = _dataView.getUint8(1);
+		this.data[this.currentWriting++] = _dataView.getUint8(2);
+		this.data[this.currentWriting++] = _dataView.getUint8(3);
+		this.data[this.currentWriting++] = _dataView.getUint8(4);
+		this.data[this.currentWriting++] = _dataView.getUint8(5);
+		this.data[this.currentWriting++] = _dataView.getUint8(6);
+		this.data[this.currentWriting++] = _dataView.getUint8(7);
+	}
+	writeString(strValue){
+		let _dataString = new TextEncoder().encode(strValue);
+		this.writeShort(_dataString.length);
+		for(let i=0;i<_dataString.length;i++)
+			this.data[this.currentWriting++] = _dataString[i] & 0xFF;
 	}
 }
 class MessageReceiving{
@@ -52,33 +59,46 @@ class MessageReceiving{
 		this.arrBuffer=dataReceiving;
 		this.currentreading = 2;
 		this.bufferDataview = new DataView(dataReceiving);
-		this.cmd = this.bufferDataview.getInt16(0,true);
+		this.cmd = this.bufferDataview.getInt16(0);
 	}
-	readByte(){
-		let byteResult = this.bufferDataview.getInt8(this.currentreading,true);
-		this.currentreading++;
-		return byteResult;
-	}
+	readByte(){return this.bufferDataview.getInt8(this.currentreading++);}
 	readShort(){
-		let shortResult = this.bufferDataview.getInt16(this.currentreading,true);
+		let shortResult = this.bufferDataview.getInt16(this.currentreading);
 		this.currentreading+=2;
 		return shortResult;
 	}
 	readInt(){
-		let intResult = this.bufferDataview.getInt32(this.currentreading,true);
+		let intResult = this.bufferDataview.getInt32(this.currentreading);
 		this.currentreading+=4;
 		return intResult;
 	}
 	readLong(){
-		let longResult = this.bufferDataview.getBigInt64(this.currentreading,true);
-		this.currentreading+=8;
-		return longResult;
+		let l0 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l1 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l2 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l3 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l4 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l5 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l6 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		let l7 = this.bufferDataview.getInt8(this.currentreading++) & 0xFF;
+		return (l0 << 56) + (l1 << 48) + (l2 << 40) + (l3 << 32) + (l4 << 24) + (l5 << 16) + (l6 << 8) + l7;
 	}
 	readString(){
-		let strLength = this.bufferDataview.getUint16(this.currentreading,true);
+		let strLength = this.bufferDataview.getUint16(this.currentreading);
+		this.currentreading+=2;
 		let _buffStr = new DataView(this.arrBuffer, this.currentreading, strLength);
 		this.currentreading+=strLength;
 		return new TextDecoder("utf-8").decode(_buffStr);
+	}
+	readFloat(){
+		let _floatValue = this.bufferDataview.getFloat32(this.currentreading);
+		this.currentreading+=4;
+		return _floatValue;
+	}
+	readDouble(){
+		let _doubleValue = this.bufferDataview.getFloat64(this.currentreading);
+		this.currentreading+=8;
+		return _doubleValue;
 	}
 }
 
@@ -86,40 +106,58 @@ class MessageReceiving{
 class BGWebsocket{
 	#websocket;
 	constructor(){
-		this.isRunning=false;
 		this.isPause=false;
-		this.onConnectSuccess = function(){};
-		this.onDisconnect = function (){};
 	}
 	start(_ip,_port){
+		gameEngine.sessionId=-1;
 		this.#websocket = new WebSocket("ws://"+_ip+":"+_port);
 		this.#websocket.binaryType = "arraybuffer";
-		this.#websocket.onopen = function(e) {if(this.onConnectSuccess)this.onConnectSuccess();};
-		this.#websocket.onclose = function(event) {if(this.onDisconnect)this.onDisconnect();};
+
+		let currentBGWS=this;
+		this.#websocket.onopen = function(e) {
+			let _mgInit = new MessageSending(0);
+			_mgInit.writeShort(-1);
+			currentBGWS.send(_mgInit);
+		};
+		this.#websocket.onclose = ()=>{if(this.onDisconnect)this.onDisconnect();};
 		
 		this.#websocket.onmessage = function(event) {//
 			gameEngine.lastTimeWebsocket = Date.now();
 			let _data = event.data;
 			if (_data instanceof ArrayBuffer) {// binary frame
 				let messageReceiving = new MessageReceiving(_data);
-				if(gameEngine.onWSBinary[messageReceiving.cmd])
-					gameEngine.onWSBinary[messageReceiving.cmd](messageReceiving);
+				console.log("Client receive CMD("+messageReceiving.cmd+") : "+(_data.byteLength-2));
+				if(gameEngine.sessionId==-1){//Lần đầu nhận sessionId
+					if(messageReceiving.readByte()==1){
+						gameEngine.sessionId = messageReceiving.readShort();
+						currentBGWS.SecWebSocketKey = messageReceiving.readString();
+						console.log("Connection success SessionId("+gameEngine.sessionId+") : "+currentBGWS.SecWebSocketKey);
+						if(gameEngine.onRealtimeConnectSuccess)
+							gameEngine.onRealtimeConnectSuccess();
+					}else
+						gameEngine.closeRealtime();
+				}else
+					if(gameEngine.onWSBinary[messageReceiving.cmd])
+						gameEngine.onWSBinary[messageReceiving.cmd](messageReceiving);
+					else
+						console.log("CMD("+messageReceiving.cmd+") is not Process. Please setup gameEngine.onWSBinary["+messageReceiving.cmd+"]= (messageReceiving)=>{};");
 			}else{// text frame
-				
+
 
 			}
 		};
 		
-		
-		this.#websocket.onerror = function(error) {
-			alert(`[error]`);
-		};
+		this.#websocket.onerror = function(error) {console.log("=====> this.#websocket.onerror = function(error) : "+error);};
 	}
 	setReceiver(CMD,funReceive){
 
 	}
-	send(message){}
-	stop(){this.#websocket.close();}
+	isRunning(){return this.#websocket && (this.#websocket.readyState==WebSocket.OPEN || this.#websocket.readyState==WebSocket.CONNECTING);}/*CONNECTING(0) - OPEN(1) - CLOSING(2) - CLOSED(3)*/
+	send(message){
+		console.log("Client send CMD("+message.cmd+") : " + (message.currentWriting-2) + " byte");
+		this.#websocket.send(new Int8Array(message.data,message.currentWriting));
+	}
+	release(){this.#websocket.close();}
 }
 
 
@@ -127,7 +165,14 @@ class BGWebsocket{
 
 
 /*tạo ra sự chuyển đổi giữa các màn hình*/
-class GameScene {constructor(_sceneName){this.sceneName = _sceneName;}onInit(){}onUpdate(){}onRelease(){}}
+class GameScene {
+	constructor(_sceneName){
+		this.sceneName = _sceneName;
+	}
+	onInit(){}
+	onUpdate(){}
+	onRelease(){}
+}
 
 class BGEngine{//Lớp cha chứa vòng lặp game
 	#ctxMain;
@@ -169,7 +214,7 @@ class BGEngine{//Lớp cha chứa vòng lặp game
 		///////////////////////////////Tạo ra DoubleBuffer
 		if(this.#canvasBuffer)
 			this.#canvasBuffer.remove();				
-		this.#canvasBuffer = document.createElement('canvas');;
+		this.#canvasBuffer = document.createElement('canvas');
 		this.#canvasBuffer.width = canvasMain.width;
 		this.#canvasBuffer.height = canvasMain.height;
 		///////////////////////////////Sử dụng context để vẽ
@@ -177,45 +222,25 @@ class BGEngine{//Lớp cha chứa vòng lặp game
 		this.ctx = this.#canvasBuffer.getContext('2d');
 	}
 
-	
+
 	startRealtime(_ip,_port){
-		this.websocket = new WebSocket("ws://"+_ip+":"+_port);
-		this.websocket.onopen = function(e) {
-			alert("[open] Connection established");
-			alert("Sending to server");
-			socket.send("My name is John");
-		};
-		this.websocket.binaryType = "arraybuffer";
-		
-		this.websocket.onmessage = function(event) {
-			alert(`[message] Data received from server: ${event.data}`);
-		};
-		
-		this.websocket.onclose = function(event) {
-			if (event.wasClean) {
-				alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-			} else {
-				// e.g. server process killed or network down
-				// event.code is usually 1006 in this case
-				alert('[close] Connection died');
-			}
-		};
-		
-		this.websocket.onerror = function(error) {
-			alert(`[error]`);
-		};
+		if(this.websocket)
+			this.websocket.release();
+		this.websocket = new BGWebsocket();
+		this.websocket.start(_ip,_port);
 	}
 	send(messageSending){
 		if(this.websocket)
-			if(this.websocket.readyState==WebSocket.OPEN){
-				
+			if(this.websocket.isRunning()){
+				this.websocket.send(messageSending);
 			}else
-				alert("Websocket is "+this.websocket.readyState);//CONNECTING(0) - OPEN(1) - CLOSING(2) - CLOSED(3)
+				alert("Websocket is Close");
 		else
 			alert("Websocket is not init");
 	}
+	closeRealtime(){if(this.websocket)this.websocket.release();}
 }
 
 const gameEngine = new BGEngine();
-const loopId = setInterval(function(){gameEngine.tickGameLoop();}, 1);//Vòng lặp game gọi mỗi 1ms
+const loopId = setInterval(function(){gameEngine.tickGameLoop();}, 15);//Vòng lặp game gọi mỗi 15ms → 66 frame mỗi giây
 //clearInterval(gameLoop);
